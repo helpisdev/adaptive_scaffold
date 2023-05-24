@@ -10,12 +10,16 @@ environment:
 
 dependencies:
   adaptive_scrollbar:
-    path: packages/adaptive_scrollbar
+    git:
+      url: https://github.com/helpisdev/adaptive-scrollbar.git
+      ref: main
   collection: ^1.17.1
   flutter:
     sdk: flutter
   gtk_window:
-    path: packages/gtk_window
+    git:
+      url: https://github.com/helpisdev/gtk_window.git
+      ref: main
   utilities:
     git:
       url: https://github.com/helpisdev/utilities.git
