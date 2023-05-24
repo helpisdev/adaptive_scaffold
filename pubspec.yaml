@@ -19,7 +19,7 @@ dependencies:
   utilities:
     git:
       url: https://github.com/helpisdev/utilities.git
-      ref: master
+      ref: main
 
 dev_dependencies:
   flutter_test:
