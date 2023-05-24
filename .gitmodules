@@ -1,0 +1,6 @@
+[submodule "packages/gtk_window"]
+	path = packages/gtk_window
+	url = https://github.com/helpisdev/gtk_window.git
+[submodule "packages/adaptive_scrollbar"]
+	path = packages/adaptive_scrollbar
+	url = https://github.com/helpisdev/adaptive-scrollbar.git

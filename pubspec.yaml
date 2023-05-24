@@ -1,0 +1,29 @@
+name: adaptive_scaffold
+description: Widgets to easily build adaptive layouts, including navigation elements.
+version: 0.3.1+1
+repository: https://github.com/helpisdev/adaptive-scaffold.git
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  adaptive_scrollbar:
+    path: packages/adaptive_scrollbar
+  collection: ^1.17.1
+  flutter:
+    sdk: flutter
+  gtk_window:
+    path: packages/gtk_window
+  utilities:
+    git:
+      url: https://github.com/helpisdev/utilities.git
+      ref: master
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+dependency_overrides:
+  handy_window: "^0.3.1"
