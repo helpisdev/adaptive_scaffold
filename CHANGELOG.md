@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.3.1+3`](#adaptive_scaffold---v0313)
+
+---
+
+#### `adaptive_scaffold` - `v0.3.1+3`
+
+ - **FIX**(navigation_rail): Respect user defined width and extended width. ([ceed83c7](https://github.com/helpisdev/adaptive_scaffold.git/commit/ceed83c7ee524f00665da47b8bd0198d6c258166))
+
+## 0.3.1+3
+
+ - **FIX**(navigation_rail): Respect user defined width and extended width. ([ceed83c7](https://github.com/helpisdev/adaptive_scaffold.git/commit/ceed83c7ee524f00665da47b8bd0198d6c258166))
+
+
+## 2023-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.3.1+2`](#adaptive_scaffold---v0312)
 
 ---
