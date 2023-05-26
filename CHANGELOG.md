@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.1+1`](#adaptive_scaffold---v0411)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.1+1`
+
+ - **FIX**(appbar): Pass newly added callbacks to the underlying appbar. ([cf6ba381](https://github.com/helpisdev/adaptive_scaffold.git/commit/cf6ba381077bf3fe54fcd9a565dd19bbbd7f4039))
+
+## 0.4.1+1
+
+ - **FIX**(appbar): Pass newly added callbacks to the underlying appbar. ([cf6ba381](https://github.com/helpisdev/adaptive_scaffold.git/commit/cf6ba381077bf3fe54fcd9a565dd19bbbd7f4039))
+
+
+## 2023-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.1`](#adaptive_scaffold---v041)
 
 ---
