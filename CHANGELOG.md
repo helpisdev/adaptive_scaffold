@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.3.1+5`](#adaptive_scaffold---v0315)
+
+---
+
+#### `adaptive_scaffold` - `v0.3.1+5`
+
+ - **FIX**(scaffold_key): Make sure that copying AdaptiveScaffoldConfig generates new keys if not provided. ([46148c72](https://github.com/helpisdev/adaptive_scaffold.git/commit/46148c7288af51ad97a1d8d9f84bd72fc762dce5))
+
+## 0.3.1+5
+
+ - **FIX**(scaffold_key): Make sure that copying AdaptiveScaffoldConfig generates new keys if not provided. ([46148c72](https://github.com/helpisdev/adaptive_scaffold.git/commit/46148c7288af51ad97a1d8d9f84bd72fc762dce5))
+
+
+## 2023-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.3.1+4`](#adaptive_scaffold---v0314)
 
 ---
