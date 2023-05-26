@@ -91,18 +91,24 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   late int? index = widget.config.navigationRailConfig.selectedIndex;
   Key? _scrollbarKey;
 
-  void changeIndex(final int index) {
+  void changeIndex(final int index, final BuildContext context) {
     final NavigationRailConfig config = conf.navigationRailConfig;
     final NavigationDestination destination = config.destinations[index];
 
-    changeIndexWithRailInfo(index, destination, config);
+    changeIndexWithRailInfo(
+      index: index,
+      destination: destination,
+      config: config,
+      context: context,
+    );
   }
 
-  void changeIndexWithRailInfo(
-    final int index,
-    final NavigationDestination destination,
-    final NavigationRailConfig config,
-  ) {
+  void changeIndexWithRailInfo({
+    required final int index,
+    required final NavigationDestination destination,
+    required final NavigationRailConfig config,
+    required final BuildContext context,
+  }) {
     setState(
       () => this.index = index,
     );
@@ -111,8 +117,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
       destination,
       config,
     );
-    conf.scaffoldKey.currentState
-      ?..closeDrawer()
+    Scaffold.of(context)
+      ..closeDrawer()
       ..closeEndDrawer();
   }
 
@@ -154,71 +160,12 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     final Breakpoint breakpoint = drawer.breakpoint;
     final bool useDrawer = breakpoint.isActive(context) &&
         (drawer.useDrawer || drawer.useEndDrawer);
-    final NavigationRailConfig rail = conf.navigationRailConfig.copyWith(
-      updates: <String, dynamic>{
-        'selectedIndex': index,
-        'onDestinationSelected': changeIndexWithRailInfo,
-      },
-    );
-    final AdaptiveAppBar appbar = AdaptiveAppBar.fromContext(
-      context: context,
-      leading: userDefinedAppBar?.customLeading ??
-          Visibility(
-            visible: useDrawer,
-            child: IconButton(
-              onPressed: conf.scaffoldKey.currentState?.openDrawer,
-              icon: Icon(
-                Icons.menu,
-                semanticLabel: MaterialLocalizations.of(
-                  context,
-                ).openAppDrawerTooltip,
-              ),
-            ),
-          ),
-      actions: userDefinedAppBar?.actions,
-      backgroundColor: userDefinedAppBar?.backgroundColor,
-      foregroundColor: userDefinedAppBar?.foregroundColor,
-      shadowColor: userDefinedAppBar?.shadowColor,
-      surfaceTintColor: userDefinedAppBar?.surfaceTintColor,
-      actionsIconTheme: userDefinedAppBar?.actionsIconTheme,
-      iconTheme: userDefinedAppBar?.iconTheme,
-      key: userDefinedAppBar?.key,
-      bottom: userDefinedAppBar?.bottom,
-      notificationPredicate: userDefinedAppBar?.notificationPredicate ??
-          defaultScrollNotificationPredicate,
-      shape: userDefinedAppBar?.shape,
-      systemOverlayStyle: userDefinedAppBar?.systemOverlayStyle,
-      titleTextStyle: userDefinedAppBar?.titleTextStyle,
-      toolbarTextStyle: userDefinedAppBar?.toolbarTextStyle,
-      flexibleSpace: userDefinedAppBar?.flexibleSpace,
-      title: userDefinedAppBar?.title,
-      automaticallyImplyLeading:
-          userDefinedAppBar?.automaticallyImplyLeading ?? true,
-      excludeHeaderSemantics:
-          userDefinedAppBar?.excludeHeaderSemantics ?? false,
-      primary: userDefinedAppBar?.primary ?? true,
-      centerTitle: userDefinedAppBar?.centerTitle,
-      bottomOpacity: userDefinedAppBar?.bottomOpacity ?? 1,
-      titleSpacing:
-          userDefinedAppBar?.titleSpacing ?? NavigationToolbar.kMiddleSpacing,
-      toolbarOpacity: userDefinedAppBar?.toolbarOpacity ?? 1,
-      elevation: userDefinedAppBar?.elevation,
-      leadingWidth: userDefinedAppBar?.leadingWidth,
-      scrolledUnderElevation: userDefinedAppBar?.scrolledUnderElevation,
-      toolbarHeight: userDefinedAppBar?.toolbarHeight,
-      forceMaterialTransparency:
-          userDefinedAppBar?.forceMaterialTransparency ?? false,
-    );
-    final bool useAppBar = PredefinedBreakpoint.standard
-        .withPlatform(DeviceType.desktop)
-        .isActive(context);
     return Directionality(
       textDirection: TextDirection.ltr,
       child: SizedBox(
         width: context.width,
         height: context.height,
         child: Scaffold(
-          key: conf.scaffoldKey,
           onDrawerChanged: drawer.onDrawerChanged,
           onEndDrawerChanged: drawer.onEndDrawerChanged,
           drawerDragStartBehavior: drawer.drawerDragStartBehavior,
@@ -238,18 +185,9 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
           extendBody: conf.extendBody,
           extendBodyBehindAppBar: conf.extendBodyBehindAppBar,
           restorationId: conf.restorationId,
-          appBar: useAppBar ? appbar as PreferredSizeWidget : null,
-          drawer: AdaptiveDrawer.maybeOf(
-            context: context,
-            config: drawer,
-            navRailConf: rail,
-          ),
-          endDrawer: AdaptiveDrawer.maybeOf(
-            context: context,
-            config: drawer,
-            navRailConf: rail,
-            endDrawer: true,
-          ),
+          appBar: _configAppBar(context, userDefinedAppBar, useDrawer),
+          drawer: _configDrawer(drawer),
+          endDrawer: _configDrawer(drawer, isEndDrawer: true),
           body: Builder(
             builder: (final BuildContext context) {
               final Widget child = AdaptiveLayout(
@@ -259,7 +197,22 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                 primaryNavigation: PrimaryNavigation(
                   medium: conf.breakpointConfig.medium,
                   large: conf.breakpointConfig.large,
-                  navigationRailConfig: rail,
+                  navigationRailConfig: conf.navigationRailConfig.copyWith(
+                    updates: <String, dynamic>{
+                      'selectedIndex': index,
+                      'onDestinationSelected': (
+                        final int index,
+                        final NavigationDestination destination,
+                        final NavigationRailConfig config,
+                      ) =>
+                          changeIndexWithRailInfo(
+                            index: index,
+                            destination: destination,
+                            config: config,
+                            context: context,
+                          ),
+                    },
+                  ),
                 ),
                 bottomNavigation: BottomNavigation.maybeEnable(
                   context: context,
@@ -268,7 +221,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                   small: conf.breakpointConfig.small,
                   destinations: conf.navigationRailConfig.destinations,
                   selectedIndex: index,
-                  onDestinationSelected: changeIndex,
+                  onDestinationSelected: (final int i) =>
+                      changeIndex(i, context),
                   useSalomonBar: conf.useSalomonBar,
                   iconSize: conf.iconSize,
                 ),
@@ -324,6 +278,107 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
         ),
       ),
     );
+  }
+
+  Widget? _configDrawer(
+    final AdaptiveDrawerConfig adaptiveDrawer, {
+    final bool isEndDrawer = false,
+  }) {
+    bool hasDrawer = true;
+    final Widget res = Builder(
+      builder: (final BuildContext context) {
+        final Widget? drawer = AdaptiveDrawer.maybeOf(
+          context: context,
+          config: adaptiveDrawer,
+          navRailConf: conf.navigationRailConfig.copyWith(
+            updates: <String, dynamic>{
+              'selectedIndex': index,
+              'onDestinationSelected': (
+                final int index,
+                final NavigationDestination destination,
+                final NavigationRailConfig config,
+              ) =>
+                  changeIndexWithRailInfo(
+                    index: index,
+                    destination: destination,
+                    config: config,
+                    context: context,
+                  ),
+            },
+          ),
+          endDrawer: isEndDrawer,
+        );
+        hasDrawer = drawer != null;
+        return drawer ?? const SizedBox.shrink();
+      },
+    );
+    if (hasDrawer) {
+      return res;
+    }
+    return null;
+  }
+
+  PreferredSizeWidget? _configAppBar(
+    final BuildContext context,
+    final AdaptiveAppBar? userDefinedAppBar,
+    final bool useDrawer,
+  ) {
+    final bool useAppBar = PredefinedBreakpoint.standard
+        .withPlatform(DeviceType.desktop)
+        .isActive(context);
+    return useAppBar
+        ? AdaptiveAppBar.fromContext(
+            context: context,
+            leading: userDefinedAppBar?.customLeading ??
+                Builder(
+                  builder: (final BuildContext context) => Visibility(
+                    visible: useDrawer,
+                    child: IconButton(
+                      onPressed: Scaffold.of(context).openDrawer,
+                      icon: Icon(
+                        Icons.menu,
+                        semanticLabel: MaterialLocalizations.of(
+                          context,
+                        ).openAppDrawerTooltip,
+                      ),
+                    ),
+                  ),
+                ),
+            actions: userDefinedAppBar?.actions,
+            backgroundColor: userDefinedAppBar?.backgroundColor,
+            foregroundColor: userDefinedAppBar?.foregroundColor,
+            shadowColor: userDefinedAppBar?.shadowColor,
+            surfaceTintColor: userDefinedAppBar?.surfaceTintColor,
+            actionsIconTheme: userDefinedAppBar?.actionsIconTheme,
+            iconTheme: userDefinedAppBar?.iconTheme,
+            key: userDefinedAppBar?.key,
+            bottom: userDefinedAppBar?.bottom,
+            notificationPredicate: userDefinedAppBar?.notificationPredicate ??
+                defaultScrollNotificationPredicate,
+            shape: userDefinedAppBar?.shape,
+            systemOverlayStyle: userDefinedAppBar?.systemOverlayStyle,
+            titleTextStyle: userDefinedAppBar?.titleTextStyle,
+            toolbarTextStyle: userDefinedAppBar?.toolbarTextStyle,
+            flexibleSpace: userDefinedAppBar?.flexibleSpace,
+            title: userDefinedAppBar?.title,
+            automaticallyImplyLeading:
+                userDefinedAppBar?.automaticallyImplyLeading ?? true,
+            excludeHeaderSemantics:
+                userDefinedAppBar?.excludeHeaderSemantics ?? false,
+            primary: userDefinedAppBar?.primary ?? true,
+            centerTitle: userDefinedAppBar?.centerTitle,
+            bottomOpacity: userDefinedAppBar?.bottomOpacity ?? 1,
+            titleSpacing: userDefinedAppBar?.titleSpacing ??
+                NavigationToolbar.kMiddleSpacing,
+            toolbarOpacity: userDefinedAppBar?.toolbarOpacity ?? 1,
+            elevation: userDefinedAppBar?.elevation,
+            leadingWidth: userDefinedAppBar?.leadingWidth,
+            scrolledUnderElevation: userDefinedAppBar?.scrolledUnderElevation,
+            toolbarHeight: userDefinedAppBar?.toolbarHeight,
+            forceMaterialTransparency:
+                userDefinedAppBar?.forceMaterialTransparency ?? false,
+          ) as PreferredSizeWidget
+        : null;
   }
 
   @override

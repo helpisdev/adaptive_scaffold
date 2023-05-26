@@ -35,7 +35,6 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
     this.useInternalAnimations = true,
     this.useSalomonBar = false,
     this.iconSize,
-    final GlobalKey<ScaffoldState>? scaffoldKey,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.floatingActionButtonAnimator,
@@ -48,7 +47,7 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
     this.extendBody = false,
     this.extendBodyBehindAppBar = false,
     this.restorationId,
-  }) : _scaffoldKey = scaffoldKey ?? const _ScaffoldGlobalKey();
+  });
 
   /// If true, and [BottomNavigationBar] or [persistentFooterButtons]
   /// is specified, then the [BodyConfig.body] extends to the bottom of the
@@ -195,11 +194,6 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
   ///    Flutter.
   final String? restorationId;
 
-  /// Key for the underlying [Scaffold] used within the [AdaptiveScaffold] to
-  /// gain programmatic access to its components.
-  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
-  final GlobalKey<ScaffoldState> _scaffoldKey;
-
   /// [AdaptiveScaffold] body configuration.
   final BodyConfig bodyConfig;
 
@@ -243,7 +237,6 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
         useInternalAnimations: useInternalAnimations,
         useSalomonBar: useSalomonBar,
         scrollbarConfig: scrollbarConfig,
-        scaffoldKey: GlobalKey<ScaffoldState>(),
         floatingActionButton: floatingActionButton,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButtonAnimator: floatingActionButtonAnimator,
@@ -271,10 +264,6 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
             updates['appbar'] ??
             other?.appBar ??
             appBar,
-        scaffoldKey: updates['scaffoldKey'] ??
-            updates['scaffold_key'] ??
-            other?.scaffoldKey ??
-            GlobalKey<ScaffoldState>(),
         useInternalAnimations: updates['useInternalAnimations'] ??
             updates['use_internal_animations'] ??
             other?.useInternalAnimations ??
@@ -366,7 +355,6 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
           useInternalAnimations == other.useInternalAnimations &&
           useSalomonBar == other.useSalomonBar &&
           scrollbarConfig == other.scrollbarConfig &&
-          scaffoldKey == other.scaffoldKey &&
           floatingActionButton == other.floatingActionButton &&
           floatingActionButtonLocation == other.floatingActionButtonLocation &&
           floatingActionButtonAnimator == other.floatingActionButtonAnimator &&
@@ -390,7 +378,6 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
       useInternalAnimations.hashCode ^
       useSalomonBar.hashCode ^
       scrollbarConfig.hashCode ^
-      scaffoldKey.hashCode ^
       floatingActionButton.hashCode ^
       floatingActionButtonLocation.hashCode ^
       floatingActionButtonAnimator.hashCode ^
@@ -1615,8 +1602,4 @@ class AdaptiveScrollbarConfig implements Copyable<AdaptiveScrollbarConfig> {
       underDecoration.hashCode ^
       sliderDecoration.hashCode ^
       sliderActiveDecoration.hashCode;
-}
-
-class _ScaffoldGlobalKey extends GlobalKey<ScaffoldState> {
-  const _ScaffoldGlobalKey() : super.constructor();
 }
