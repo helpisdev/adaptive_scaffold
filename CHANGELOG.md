@@ -15,6 +15,33 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.3.1+4`](#adaptive_scaffold---v0314)
+
+---
+
+#### `adaptive_scaffold` - `v0.3.1+4`
+
+ - **FIX**(appbar): Prevent casting error. ([7e199dd2](https://github.com/helpisdev/adaptive_scaffold.git/commit/7e199dd2f9f46eb87d1764c723bac71571d12347))
+ - **FIX**(appbar): Respect user defined options. ([30d42093](https://github.com/helpisdev/adaptive_scaffold.git/commit/30d42093afa845184e663e0148a3f0beffc54e82))
+
+## 0.3.1+4
+
+ - **FIX**(appbar): Prevent casting error. ([7e199dd2](https://github.com/helpisdev/adaptive_scaffold.git/commit/7e199dd2f9f46eb87d1764c723bac71571d12347))
+ - **FIX**(appbar): Respect user defined options. ([30d42093](https://github.com/helpisdev/adaptive_scaffold.git/commit/30d42093afa845184e663e0148a3f0beffc54e82))
+
+
+## 2023-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.3.1+3`](#adaptive_scaffold---v0313)
 
 ---
