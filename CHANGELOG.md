@@ -11,6 +11,31 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`adaptive_scaffold` - `v0.4.1`](#adaptive_scaffold---v041)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.1`
+
+ - **FEAT**(appbar): Add onWillPopCallback for GTKHeaderBar. ([eed3ed6b](https://github.com/helpisdev/adaptive_scaffold.git/commit/eed3ed6ba6bef0b10da74ca08d73077cdd2222b3))
+
+## 0.4.1
+
+ - **FEAT**(appbar): Add onWillPopCallback for GTKHeaderBar. ([eed3ed6b](https://github.com/helpisdev/adaptive_scaffold.git/commit/eed3ed6ba6bef0b10da74ca08d73077cdd2222b3))
+
+
+## 2023-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`adaptive_scaffold` - `v0.4.0`](#adaptive_scaffold---v040)
 
 Packages with other changes:
