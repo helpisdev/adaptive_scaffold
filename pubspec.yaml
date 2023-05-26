@@ -1,6 +1,6 @@
 name: adaptive_scaffold
 description: Widgets to easily build adaptive layouts, including navigation elements.
-version: 0.3.1+1
+version: 0.3.1+2
 repository: https://github.com/helpisdev/adaptive_scaffold.git
 publish_to: none
 
