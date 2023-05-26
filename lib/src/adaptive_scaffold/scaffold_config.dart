@@ -243,7 +243,7 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
         useInternalAnimations: useInternalAnimations,
         useSalomonBar: useSalomonBar,
         scrollbarConfig: scrollbarConfig,
-        scaffoldKey: scaffoldKey,
+        scaffoldKey: const _ScaffoldGlobalKey(),
         floatingActionButton: floatingActionButton,
         floatingActionButtonLocation: floatingActionButtonLocation,
         floatingActionButtonAnimator: floatingActionButtonAnimator,
@@ -274,7 +274,7 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
         scaffoldKey: updates['scaffoldKey'] ??
             updates['scaffold_key'] ??
             other?.scaffoldKey ??
-            scaffoldKey,
+            const _ScaffoldGlobalKey(),
         useInternalAnimations: updates['useInternalAnimations'] ??
             updates['use_internal_animations'] ??
             other?.useInternalAnimations ??
