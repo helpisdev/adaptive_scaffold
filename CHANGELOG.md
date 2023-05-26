@@ -11,6 +11,33 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - [`adaptive_scaffold` - `v0.4.0`](#adaptive_scaffold---v040)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `adaptive_scaffold` - `v0.4.0`
+
+ - **BREAKING** **FEAT**(scaffold_key): Remove the need for a scaffold global key by utilizing Builder and Scaffold.of(context) instead. ([cd0306f8](https://github.com/helpisdev/adaptive_scaffold.git/commit/cd0306f88f651b89052f25e3bd709efa357f6235))
+
+## 0.4.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**(scaffold_key): Remove the need for a scaffold global key by utilizing Builder and Scaffold.of(context) instead. ([cd0306f8](https://github.com/helpisdev/adaptive_scaffold.git/commit/cd0306f88f651b89052f25e3bd709efa357f6235))
+
+
+## 2023-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - There are no breaking changes in this release.
 
 Packages with other changes:
