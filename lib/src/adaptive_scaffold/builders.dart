@@ -72,8 +72,7 @@ class StandardNavigationRail extends StatelessWidget {
         builder: (final BuildContext context) => Padding(
           padding: railConfig.padding,
           child: SizedBox(
-            width:
-                (extended && railConfig.width == 72) ? 192 : railConfig.width,
+            width: railConfig.width,
             height: MediaQuery.of(context).size.height,
             child: LayoutBuilder(
               builder: (
