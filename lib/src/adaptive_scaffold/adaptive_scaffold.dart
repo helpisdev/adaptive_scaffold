@@ -360,6 +360,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
             titleTextStyle: userDefinedAppBar?.titleTextStyle,
             toolbarTextStyle: userDefinedAppBar?.toolbarTextStyle,
             flexibleSpace: userDefinedAppBar?.flexibleSpace,
+            onWillPopCallback: userDefinedAppBar?.onWillPopCallback,
+            onWindowResize: userDefinedAppBar?.onWindowResize,
             title: userDefinedAppBar?.title,
             automaticallyImplyLeading:
                 userDefinedAppBar?.automaticallyImplyLeading ?? true,
