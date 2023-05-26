@@ -39,6 +39,8 @@ mixin AdaptiveAppBar {
   abstract final bool forceMaterialTransparency;
   abstract final dynamic customLeading;
   abstract final Key? key;
+  abstract final VoidCallback? onWillPopCallback;
+  abstract final WindowResizeCallback? onWindowResize;
 
   /// Constructs a default [AppBar] with predefined [leadingWidth] and
   /// [titleSpacing]. Inspired by the AdaptiveAppBar implementation of
@@ -75,6 +77,8 @@ mixin AdaptiveAppBar {
     final double? scrolledUnderElevation,
     final double? toolbarHeight,
     final bool forceMaterialTransparency = false,
+    final VoidCallback? onWillPopCallback,
+    final WindowResizeCallback? onWindowResize,
   }) {
     const BreakpointGenerator desktopBreakpoint = BreakpointGenerator.generate(
       begin: 0,
@@ -89,6 +93,8 @@ mixin AdaptiveAppBar {
         actions: actions,
         actionsIconTheme: actionsIconTheme,
         automaticallyImplyLeading: automaticallyImplyLeading,
+        onWillPopCallback: onWillPopCallback,
+        onWindowResize: onWindowResize,
         backgroundColor: backgroundColor,
         bottomOpacity: bottomOpacity,
         centerTitle: centerTitle,
@@ -195,8 +201,9 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
     super.showCloseButton,
     super.showWindowControlsButtons,
     super.onWindowResize,
+    super.onWillPopCallback,
     super.key,
-  }) : super();
+  }) : super(autoImplyLeading: automaticallyImplyLeading);
 
   @override
   final List<Widget>? actions;
@@ -316,4 +323,10 @@ class AdaptiveMaterialAppBar extends AppBar with AdaptiveAppBar {
 
   @override
   Widget? get customLeading => leading;
+
+  @override
+  VoidCallback? get onWillPopCallback => null;
+
+  @override
+  WindowResizeCallback? get onWindowResize => null;
 }
