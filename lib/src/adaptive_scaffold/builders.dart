@@ -86,51 +86,47 @@ class StandardNavigationRail extends StatelessWidget {
                     constraints: BoxConstraints(
                       minHeight: constraints.maxHeight,
                     ),
-                    child: IntrinsicHeight(
-                      child: NavigationRail(
-                        backgroundColor: railConfig.backgroundColor ??
-                            navRailTheme.backgroundColor,
-                        destinations: railConfig.destinations
-                            .map(
-                              (final NavigationDestination dest) =>
-                                  toRailDestination(
-                                dest,
-                                extended
-                                    ? railConfig.extendedWidth
-                                    : railConfig.width,
-                              ),
-                            )
-                            .toList(),
-                        elevation:
-                            railConfig.elevation ?? navRailTheme.elevation,
-                        extended: extended,
-                        groupAlignment: railConfig.groupAlignment ??
-                            navRailTheme.groupAlignment,
-                        indicatorColor: railConfig.indicatorColor ??
-                            navRailTheme.indicatorColor,
-                        indicatorShape: railConfig.indicatorShape,
-                        key: railConfig.key,
-                        labelType:
-                            railConfig.labelType ?? navRailTheme.labelType,
-                        leading: extended
-                            ? railConfig.leadingExtended
-                            : railConfig.leading,
-                        onDestinationSelected: _onDestinationSelected,
-                        selectedIconTheme: railConfig.selectedIconTheme ??
-                            navRailTheme.selectedIconTheme,
-                        selectedIndex: railConfig.selectedIndex,
-                        selectedLabelTextStyle:
-                            railConfig.selectedLabelTextStyle ??
-                                navRailTheme.selectedLabelTextStyle,
-                        trailing: railConfig.trailing,
-                        unselectedIconTheme: railConfig.unselectedIconTheme ??
-                            navRailTheme.unselectedIconTheme,
-                        unselectedLabelTextStyle:
-                            railConfig.unselectedLabelTextStyle ??
-                                navRailTheme.unselectedLabelTextStyle,
-                        useIndicator: railConfig.useIndicator ??
-                            navRailTheme.useIndicator,
-                      ),
+                    child: NavigationRail(
+                      backgroundColor: railConfig.backgroundColor ??
+                          navRailTheme.backgroundColor,
+                      destinations: railConfig.destinations
+                          .map(
+                            (final NavigationDestination dest) =>
+                                toRailDestination(
+                              dest,
+                              extended
+                                  ? railConfig.extendedWidth
+                                  : railConfig.width,
+                            ),
+                          )
+                          .toList(),
+                      elevation: railConfig.elevation ?? navRailTheme.elevation,
+                      extended: extended,
+                      groupAlignment: railConfig.groupAlignment ??
+                          navRailTheme.groupAlignment,
+                      indicatorColor: railConfig.indicatorColor ??
+                          navRailTheme.indicatorColor,
+                      indicatorShape: railConfig.indicatorShape,
+                      key: railConfig.key,
+                      labelType: railConfig.labelType ?? navRailTheme.labelType,
+                      leading: extended
+                          ? railConfig.leadingExtended
+                          : railConfig.leading,
+                      onDestinationSelected: _onDestinationSelected,
+                      selectedIconTheme: railConfig.selectedIconTheme ??
+                          navRailTheme.selectedIconTheme,
+                      selectedIndex: railConfig.selectedIndex,
+                      selectedLabelTextStyle:
+                          railConfig.selectedLabelTextStyle ??
+                              navRailTheme.selectedLabelTextStyle,
+                      trailing: railConfig.trailing,
+                      unselectedIconTheme: railConfig.unselectedIconTheme ??
+                          navRailTheme.unselectedIconTheme,
+                      unselectedLabelTextStyle:
+                          railConfig.unselectedLabelTextStyle ??
+                              navRailTheme.unselectedLabelTextStyle,
+                      useIndicator:
+                          railConfig.useIndicator ?? navRailTheme.useIndicator,
                     ),
                   ),
                 );
