@@ -44,9 +44,17 @@ class StandardNavigationRail extends StatelessWidget {
   /// from a [NavigationDestination].
   static NavigationRailDestination toRailDestination(
     final NavigationDestination destination,
+    final double width,
   ) =>
       NavigationRailDestination(
-        label: LabelLarge(destination.label),
+        label: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(width: width),
+          child: LabelLarge(
+            destination.label,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+        ),
         icon: destination.icon,
         selectedIcon: destination.selectedIcon,
       );
@@ -84,7 +92,10 @@ class StandardNavigationRail extends StatelessWidget {
                         backgroundColor: railConfig.backgroundColor ??
                             navRailTheme.backgroundColor,
                         destinations: railConfig.destinations
-                            .map(toRailDestination)
+                            .map(
+                              (final NavigationDestination dest) =>
+                                  toRailDestination(dest, railConfig.width),
+                            )
                             .toList(),
                         elevation:
                             railConfig.elevation ?? navRailTheme.elevation,
