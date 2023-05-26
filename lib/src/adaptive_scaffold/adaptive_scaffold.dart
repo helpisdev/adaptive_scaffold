@@ -150,6 +150,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   @override
   Widget build(final BuildContext context) {
     final AdaptiveDrawerConfig drawer = conf.drawerConfig;
+    final AppBar? userDefinedAppBar = conf.appBar as AppBar?;
     final Breakpoint breakpoint = drawer.breakpoint;
     final bool useDrawer = breakpoint.isActive(context) &&
         (drawer.useDrawer || drawer.useEndDrawer);
@@ -161,17 +162,52 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     );
     final PreferredSizeWidget appbar = AdaptiveAppBar.fromContext(
       context: context,
-      leading: Visibility(
-        visible: useDrawer,
-        child: IconButton(
-          onPressed: conf.scaffoldKey.currentState?.openDrawer,
-          icon: Icon(
-            Icons.menu,
-            semanticLabel:
-                MaterialLocalizations.of(context).openAppDrawerTooltip,
+      leading: userDefinedAppBar?.leading ??
+          Visibility(
+            visible: useDrawer,
+            child: IconButton(
+              onPressed: conf.scaffoldKey.currentState?.openDrawer,
+              icon: Icon(
+                Icons.menu,
+                semanticLabel: MaterialLocalizations.of(
+                  context,
+                ).openAppDrawerTooltip,
+              ),
+            ),
           ),
-        ),
-      ),
+      actions: userDefinedAppBar?.actions,
+      backgroundColor: userDefinedAppBar?.backgroundColor,
+      foregroundColor: userDefinedAppBar?.foregroundColor,
+      shadowColor: userDefinedAppBar?.shadowColor,
+      surfaceTintColor: userDefinedAppBar?.surfaceTintColor,
+      actionsIconTheme: userDefinedAppBar?.actionsIconTheme,
+      iconTheme: userDefinedAppBar?.iconTheme,
+      key: userDefinedAppBar?.key,
+      bottom: userDefinedAppBar?.bottom,
+      notificationPredicate: userDefinedAppBar?.notificationPredicate ??
+          defaultScrollNotificationPredicate,
+      shape: userDefinedAppBar?.shape,
+      systemOverlayStyle: userDefinedAppBar?.systemOverlayStyle,
+      titleTextStyle: userDefinedAppBar?.titleTextStyle,
+      toolbarTextStyle: userDefinedAppBar?.toolbarTextStyle,
+      flexibleSpace: userDefinedAppBar?.flexibleSpace,
+      title: userDefinedAppBar?.title,
+      automaticallyImplyLeading:
+          userDefinedAppBar?.automaticallyImplyLeading ?? true,
+      excludeHeaderSemantics:
+          userDefinedAppBar?.excludeHeaderSemantics ?? false,
+      primary: userDefinedAppBar?.primary ?? true,
+      centerTitle: userDefinedAppBar?.centerTitle,
+      bottomOpacity: userDefinedAppBar?.bottomOpacity ?? 1,
+      titleSpacing:
+          userDefinedAppBar?.titleSpacing ?? NavigationToolbar.kMiddleSpacing,
+      toolbarOpacity: userDefinedAppBar?.toolbarOpacity ?? 1,
+      elevation: userDefinedAppBar?.elevation,
+      leadingWidth: userDefinedAppBar?.leadingWidth,
+      scrolledUnderElevation: userDefinedAppBar?.scrolledUnderElevation,
+      toolbarHeight: userDefinedAppBar?.toolbarHeight,
+      forceMaterialTransparency:
+          userDefinedAppBar?.forceMaterialTransparency ?? false,
     );
     final bool useAppBar = PredefinedBreakpoint.standard
         .withPlatform(DeviceType.desktop)
