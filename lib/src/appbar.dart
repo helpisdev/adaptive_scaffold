@@ -9,11 +9,41 @@ const double kSmallAppBarHeight = 56;
 
 /// AdaptiveAppBar has a leading width of 72.0. Everything else is the same as
 /// [AppBar].
-extension AdaptiveAppBar on AppBar {
+mixin AdaptiveAppBar {
+  abstract final Color? backgroundColor;
+  abstract final Color? foregroundColor;
+  abstract final Color? shadowColor;
+  abstract final Color? surfaceTintColor;
+  abstract final IconThemeData? actionsIconTheme;
+  abstract final IconThemeData? iconTheme;
+  abstract final List<Widget>? actions;
+  abstract final PreferredSizeWidget? bottom;
+  abstract final ScrollNotificationPredicate notificationPredicate;
+  abstract final ShapeBorder? shape;
+  abstract final SystemUiOverlayStyle? systemOverlayStyle;
+  abstract final TextStyle? titleTextStyle;
+  abstract final TextStyle? toolbarTextStyle;
+  abstract final Widget? flexibleSpace;
+  abstract final Widget? title;
+  abstract final bool automaticallyImplyLeading;
+  abstract final bool excludeHeaderSemantics;
+  abstract final bool primary;
+  abstract final bool? centerTitle;
+  abstract final double bottomOpacity;
+  abstract final double? titleSpacing;
+  abstract final double toolbarOpacity;
+  abstract final double? elevation;
+  abstract final double? leadingWidth;
+  abstract final double? scrolledUnderElevation;
+  abstract final double? toolbarHeight;
+  abstract final bool forceMaterialTransparency;
+  abstract final dynamic customLeading;
+  abstract final Key? key;
+
   /// Constructs a default [AppBar] with predefined [leadingWidth] and
   /// [titleSpacing]. Inspired by the AdaptiveAppBar implementation of
   /// material.io.
-  static PreferredSizeWidget fromContext({
+  static AdaptiveAppBar fromContext({
     required final BuildContext context,
     final Color? backgroundColor,
     final Color? foregroundColor,
@@ -31,7 +61,7 @@ extension AdaptiveAppBar on AppBar {
     final TextStyle? titleTextStyle,
     final TextStyle? toolbarTextStyle,
     final Widget? flexibleSpace,
-    final Widget? leading,
+    final dynamic leading,
     final Widget? title,
     final bool automaticallyImplyLeading = true,
     final bool excludeHeaderSemantics = false,
@@ -51,16 +81,44 @@ extension AdaptiveAppBar on AppBar {
       type: DeviceType.desktop,
     );
     if (desktopBreakpoint.isActive(context)) {
-      return GTKHeaderBar(
+      return AdaptiveGTKAppBar(
         middle: title,
-        leading: <Widget>[if (leading != null) leading],
+        leading: leading is List<Widget>
+            ? leading
+            : <Widget>[if (leading != null) leading],
+        actions: actions,
+        actionsIconTheme: actionsIconTheme,
+        automaticallyImplyLeading: automaticallyImplyLeading,
+        backgroundColor: backgroundColor,
+        bottomOpacity: bottomOpacity,
+        centerTitle: centerTitle,
+        elevation: elevation,
+        excludeHeaderSemantics: excludeHeaderSemantics,
+        flexibleSpace: flexibleSpace,
+        forceMaterialTransparency: forceMaterialTransparency,
+        foregroundColor: foregroundColor,
+        iconTheme: iconTheme,
+        leadingWidth: leadingWidth,
+        notificationPredicate: notificationPredicate,
+        primary: primary,
+        scrolledUnderElevation: scrolledUnderElevation,
+        shadowColor: shadowColor,
+        shape: shape,
+        surfaceTintColor: surfaceTintColor,
+        systemOverlayStyle: systemOverlayStyle,
+        title: title,
+        titleSpacing: titleSpacing,
+        titleTextStyle: titleTextStyle,
+        toolbarHeight: toolbarHeight,
+        toolbarOpacity: toolbarOpacity,
+        toolbarTextStyle: toolbarTextStyle,
       );
     }
 
     final bool isLargeScreen = PredefinedBreakpoint.largeAndUp.isActive(
       context,
     );
-    return AppBar(
+    return AdaptiveMaterialAppBar(
       leadingWidth: leadingWidth ??
           (isLargeScreen ? kLargeAppBarHeight : kSmallAppBarHeight),
       key: key,
@@ -70,7 +128,7 @@ extension AdaptiveAppBar on AppBar {
       titleSpacing: titleSpacing,
       toolbarOpacity: toolbarOpacity,
       bottomOpacity: bottomOpacity,
-      leading: leading,
+      leading: leading is Widget? ? leading : null,
       title: title,
       actions: actions,
       flexibleSpace: flexibleSpace,
@@ -93,4 +151,169 @@ extension AdaptiveAppBar on AppBar {
       forceMaterialTransparency: forceMaterialTransparency,
     );
   }
+}
+
+class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
+  const AdaptiveGTKAppBar({
+    this.actions,
+    this.actionsIconTheme,
+    this.automaticallyImplyLeading = true,
+    this.backgroundColor,
+    this.bottomOpacity = 1,
+    this.centerTitle,
+    this.elevation,
+    this.excludeHeaderSemantics = false,
+    this.flexibleSpace,
+    this.forceMaterialTransparency = false,
+    this.foregroundColor,
+    this.iconTheme,
+    this.leadingWidth,
+    this.notificationPredicate = defaultScrollNotificationPredicate,
+    this.primary = true,
+    this.scrolledUnderElevation,
+    this.shadowColor,
+    this.shape,
+    this.surfaceTintColor,
+    this.systemOverlayStyle,
+    this.title,
+    this.titleSpacing = NavigationToolbar.kMiddleSpacing,
+    this.titleTextStyle,
+    this.toolbarHeight,
+    this.toolbarOpacity = 1,
+    this.toolbarTextStyle,
+    super.trailing,
+    super.leading,
+    super.middle,
+    super.bottom,
+    super.height,
+    super.middleSpacing,
+    super.padding,
+    super.showLeading,
+    super.showTrailing,
+    super.showMaximizeButton,
+    super.showMinimizeButton,
+    super.showCloseButton,
+    super.showWindowControlsButtons,
+    super.onWindowResize,
+    super.key,
+  }) : super();
+
+  @override
+  final List<Widget>? actions;
+
+  @override
+  final IconThemeData? actionsIconTheme;
+
+  @override
+  final bool automaticallyImplyLeading;
+
+  @override
+  final Color? backgroundColor;
+
+  @override
+  final double bottomOpacity;
+
+  @override
+  final bool? centerTitle;
+
+  @override
+  final double? elevation;
+
+  @override
+  final bool excludeHeaderSemantics;
+
+  @override
+  final Widget? flexibleSpace;
+
+  @override
+  final bool forceMaterialTransparency;
+
+  @override
+  final Color? foregroundColor;
+
+  @override
+  final IconThemeData? iconTheme;
+
+  @override
+  final double? leadingWidth;
+
+  @override
+  final ScrollNotificationPredicate notificationPredicate;
+
+  @override
+  final bool primary;
+
+  @override
+  final double? scrolledUnderElevation;
+
+  @override
+  final Color? shadowColor;
+
+  @override
+  final ShapeBorder? shape;
+
+  @override
+  final Color? surfaceTintColor;
+
+  @override
+  final SystemUiOverlayStyle? systemOverlayStyle;
+
+  @override
+  final Widget? title;
+
+  @override
+  final double? titleSpacing;
+
+  @override
+  final TextStyle? titleTextStyle;
+
+  @override
+  final double? toolbarHeight;
+
+  @override
+  final double toolbarOpacity;
+
+  @override
+  final TextStyle? toolbarTextStyle;
+
+  @override
+  List<Widget> get customLeading => leading;
+}
+
+class AdaptiveMaterialAppBar extends AppBar with AdaptiveAppBar {
+  AdaptiveMaterialAppBar({
+    super.leading,
+    super.automaticallyImplyLeading,
+    super.title,
+    super.actions,
+    super.flexibleSpace,
+    super.bottom,
+    super.elevation,
+    super.scrolledUnderElevation,
+    super.notificationPredicate,
+    super.shadowColor,
+    super.surfaceTintColor,
+    super.shape,
+    super.backgroundColor,
+    super.foregroundColor,
+    super.iconTheme,
+    super.actionsIconTheme,
+    super.primary,
+    super.centerTitle,
+    super.excludeHeaderSemantics,
+    super.titleSpacing,
+    super.toolbarOpacity,
+    super.bottomOpacity,
+    super.toolbarHeight,
+    super.leadingWidth,
+    super.toolbarTextStyle,
+    super.titleTextStyle,
+    super.systemOverlayStyle,
+    super.forceMaterialTransparency,
+    super.clipBehavior,
+    super.key,
+  }) : super();
+
+  @override
+  Widget? get customLeading => leading;
 }

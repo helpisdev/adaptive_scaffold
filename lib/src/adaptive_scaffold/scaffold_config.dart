@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:utilities/typography.dart';
 import 'package:utilities/utils.dart';
 
+import '../appbar.dart';
 import '../bottom_bar.dart';
 import '../breakpoints/breakpoint.dart';
 import 'adaptive_scaffold.dart';
@@ -231,7 +232,7 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
 
   /// Option to override the default [AppBar] when using drawer in desktop
   /// small.
-  final PreferredSizeWidget? appBar;
+  final AdaptiveAppBar? appBar;
 
   @override
   AdaptiveScaffoldConfig copy() => AdaptiveScaffoldConfig(

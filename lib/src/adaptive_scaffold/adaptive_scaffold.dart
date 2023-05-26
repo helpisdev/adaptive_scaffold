@@ -150,7 +150,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   @override
   Widget build(final BuildContext context) {
     final AdaptiveDrawerConfig drawer = conf.drawerConfig;
-    final AppBar? userDefinedAppBar = conf.appBar as AppBar?;
+    final AdaptiveAppBar? userDefinedAppBar = conf.appBar;
     final Breakpoint breakpoint = drawer.breakpoint;
     final bool useDrawer = breakpoint.isActive(context) &&
         (drawer.useDrawer || drawer.useEndDrawer);
@@ -160,9 +160,9 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
         'onDestinationSelected': changeIndexWithRailInfo,
       },
     );
-    final PreferredSizeWidget appbar = AdaptiveAppBar.fromContext(
+    final AdaptiveAppBar appbar = AdaptiveAppBar.fromContext(
       context: context,
-      leading: userDefinedAppBar?.leading ??
+      leading: userDefinedAppBar?.customLeading ??
           Visibility(
             visible: useDrawer,
             child: IconButton(
@@ -238,7 +238,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
           extendBody: conf.extendBody,
           extendBodyBehindAppBar: conf.extendBodyBehindAppBar,
           restorationId: conf.restorationId,
-          appBar: useAppBar ? appbar : null,
+          appBar: useAppBar ? appbar as PreferredSizeWidget : null,
           drawer: AdaptiveDrawer.maybeOf(
             context: context,
             config: drawer,

@@ -229,7 +229,6 @@ void main() {
                     ),
                   ],
                 ),
-                appBar: const PreferredSizeWidgetImpl(),
               ),
             ),
           ),
