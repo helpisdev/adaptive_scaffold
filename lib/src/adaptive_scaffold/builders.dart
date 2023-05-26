@@ -72,7 +72,7 @@ class StandardNavigationRail extends StatelessWidget {
         builder: (final BuildContext context) => Padding(
           padding: railConfig.padding,
           child: SizedBox(
-            width: railConfig.width,
+            width: extended ? railConfig.extendedWidth : railConfig.width,
             height: MediaQuery.of(context).size.height,
             child: LayoutBuilder(
               builder: (
@@ -93,7 +93,12 @@ class StandardNavigationRail extends StatelessWidget {
                         destinations: railConfig.destinations
                             .map(
                               (final NavigationDestination dest) =>
-                                  toRailDestination(dest, railConfig.width),
+                                  toRailDestination(
+                                dest,
+                                extended
+                                    ? railConfig.extendedWidth
+                                    : railConfig.width,
+                              ),
                             )
                             .toList(),
                         elevation:
