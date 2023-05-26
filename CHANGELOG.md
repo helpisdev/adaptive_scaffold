@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.3.1+6`](#adaptive_scaffold---v0316)
+
+---
+
+#### `adaptive_scaffold` - `v0.3.1+6`
+
+ - **FIX**(scaffold_key): Generate non-const keys. ([e2aabd6b](https://github.com/helpisdev/adaptive_scaffold.git/commit/e2aabd6b91deb5aa26d271c8c20efc09f7f45c19))
+
+## 0.3.1+6
+
+ - **FIX**(scaffold_key): Generate non-const keys. ([e2aabd6b](https://github.com/helpisdev/adaptive_scaffold.git/commit/e2aabd6b91deb5aa26d271c8c20efc09f7f45c19))
+
+
+## 2023-05-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.3.1+5`](#adaptive_scaffold---v0315)
 
 ---
