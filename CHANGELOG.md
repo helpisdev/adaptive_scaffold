@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.3`](#adaptive_scaffold---v043)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.3`
+
+ - **FEAT**(appbar): Add suport for appbar trailing widgets. ([f70060da](https://github.com/helpisdev/adaptive_scaffold.git/commit/f70060dad0c9142328fdac03ed06f2fde8f1c51a))
+
+## 0.4.3
+
+ - **FEAT**(appbar): Add suport for appbar trailing widgets. ([f70060da](https://github.com/helpisdev/adaptive_scaffold.git/commit/f70060dad0c9142328fdac03ed06f2fde8f1c51a))
+
+
+## 2023-05-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.2+1`](#adaptive_scaffold---v0421)
 
 ---
