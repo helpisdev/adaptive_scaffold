@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:utilities/typography.dart';
+import 'package:utilities/utilities.dart';
 
 import '../../adaptive_scaffold.dart';
 import 'brick_layout.dart';
 
-/// Signature fora callback that picks the desired bottom bar builder.
+/// Signature for a callback that picks the desired bottom bar builder.
 typedef BottomBarBuilder = Widget Function({
   required List<NavigationDestination> destinations,
   int? currentIndex,
@@ -32,124 +32,103 @@ WidgetBuilder get emptyBuilder => (final _) => const SizedBox();
 /// [NavigationRail] is extended or not.
 class StandardNavigationRail extends StatelessWidget {
   const StandardNavigationRail.builder({
-    required this.railConfig,
+    required this.railConf,
     this.extended = false,
     super.key,
   });
 
   final bool extended;
-  final NavigationRailConfig railConfig;
-
-  /// Public helper method to be used for creating a [NavigationRailDestination]
-  /// from a [NavigationDestination].
-  static NavigationRailDestination toRailDestination(
-    final NavigationDestination destination,
-    final double width,
-  ) =>
-      NavigationRailDestination(
-        label: ConstrainedBox(
-          constraints: BoxConstraints.tightFor(width: width),
-          child: LabelLarge(
-            destination.label,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-          ),
-        ),
-        icon: destination.icon,
-        selectedIcon: destination.selectedIcon,
-      );
+  final NavigationRailConfig railConf;
 
   void _onDestinationSelected(final int index) {
-    railConfig.onDestinationSelected?.call(
+    railConf.onDestinationSelected?.call(
       index,
-      railConfig.destinations[index],
-      railConfig,
+      railConf.destinations[index],
+      railConf,
     );
   }
 
+  static const double _kNavRailIndicatorWidth = 56;
+  static const double _kNavRailDestSpacing = 8;
+  static const double _kIconThemeDefault = 24;
+
   @override
-  Widget build(final BuildContext context) => Builder(
-        builder: (final BuildContext context) => Padding(
-          padding: railConfig.padding,
-          child: SizedBox(
-            width: extended ? railConfig.extendedWidth : railConfig.width,
-            height: MediaQuery.of(context).size.height,
-            child: LayoutBuilder(
-              builder: (
-                final BuildContext context,
-                final BoxConstraints constraints,
-              ) {
-                final NavigationRailThemeData navRailTheme =
-                    Theme.of(context).navigationRailTheme;
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: IntrinsicHeight(
-                      child: NavigationRail(
-                        backgroundColor: railConfig.backgroundColor ??
-                            navRailTheme.backgroundColor,
-                        destinations: railConfig.destinations
-                            .map(
-                              (final NavigationDestination dest) =>
-                                  toRailDestination(
-                                dest,
-                                extended
-                                    ? railConfig.extendedWidth
-                                    : railConfig.width,
-                              ),
-                            )
-                            .toList(),
-                        elevation:
-                            railConfig.elevation ?? navRailTheme.elevation,
-                        extended: extended,
-                        groupAlignment: railConfig.groupAlignment ??
-                            navRailTheme.groupAlignment,
-                        indicatorColor: railConfig.indicatorColor ??
-                            navRailTheme.indicatorColor,
-                        indicatorShape: railConfig.indicatorShape,
-                        key: railConfig.key,
-                        labelType:
-                            railConfig.labelType ?? navRailTheme.labelType,
-                        leading: extended
-                            ? railConfig.leadingExtended
-                            : railConfig.leading,
-                        onDestinationSelected: _onDestinationSelected,
-                        selectedIconTheme: railConfig.selectedIconTheme ??
-                            navRailTheme.selectedIconTheme,
-                        selectedIndex: railConfig.selectedIndex,
-                        selectedLabelTextStyle:
-                            railConfig.selectedLabelTextStyle ??
-                                navRailTheme.selectedLabelTextStyle,
-                        trailing: railConfig.trailing,
-                        unselectedIconTheme: railConfig.unselectedIconTheme ??
-                            navRailTheme.unselectedIconTheme,
-                        unselectedLabelTextStyle:
-                            railConfig.unselectedLabelTextStyle ??
-                                navRailTheme.unselectedLabelTextStyle,
-                        useIndicator: railConfig.useIndicator ??
-                            navRailTheme.useIndicator,
-                      ),
+  Widget build(final BuildContext context) {
+    final NavigationRailThemeData railTheme = context.theme.navigationRailTheme;
+    final double width = extended ? railConf.extendedWidth : railConf.width;
+    final double maxLabelWidth = _maxLabelWidth(context, width);
+    return SizedBox(
+      width: width,
+      height: context.height,
+      child: NavigationRail(
+        backgroundColor: railConf.backgroundColor ?? railTheme.backgroundColor,
+        destinations: railConf.destinations
+            .map(
+              (final NavigationDestination dest) => NavigationRailDestination(
+                label: Padding(
+                  padding: railConf.padding,
+                  child: SizedBox(
+                    width: !extended ? width : maxLabelWidth,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Expanded(
+                          child: LabelLarge(
+                            dest.label,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                );
-              },
-            ),
-          ),
-        ),
-      );
+                ),
+                icon: dest.icon,
+                selectedIcon: dest.selectedIcon,
+              ),
+            )
+            .toList(),
+        elevation: railConf.elevation ?? railTheme.elevation,
+        extended: extended,
+        groupAlignment: railConf.groupAlignment ?? railTheme.groupAlignment,
+        indicatorColor: railConf.indicatorColor ?? railTheme.indicatorColor,
+        indicatorShape: railConf.indicatorShape,
+        key: railConf.key,
+        labelType: railConf.labelType ?? railTheme.labelType,
+        leading: extended ? railConf.leadingExtended : railConf.leading,
+        onDestinationSelected: _onDestinationSelected,
+        selectedIconTheme:
+            railConf.selectedIconTheme ?? railTheme.selectedIconTheme,
+        selectedIndex: railConf.selectedIndex,
+        selectedLabelTextStyle:
+            railConf.selectedLabelTextStyle ?? railTheme.selectedLabelTextStyle,
+        trailing: railConf.trailing,
+        unselectedIconTheme:
+            railConf.unselectedIconTheme ?? railTheme.unselectedIconTheme,
+        unselectedLabelTextStyle: railConf.unselectedLabelTextStyle ??
+            railTheme.unselectedLabelTextStyle,
+        useIndicator: railConf.useIndicator ?? railTheme.useIndicator,
+      ),
+    );
+  }
+
+  double _maxLabelWidth(final BuildContext context, final double width) {
+    final double iconSize = NavigationBarTheme.of(context)
+            .iconTheme
+            ?.resolve(<MaterialState>{MaterialState.selected})?.size ??
+        _kIconThemeDefault;
+    return railConf.extendedWidth -
+        iconSize -
+        _kNavRailDestSpacing -
+        _kNavRailIndicatorWidth -
+        railConf.padding.horizontal;
+  }
 
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(
-        DiagnosticsProperty<NavigationRailConfig>(
-          'navigationRailConfig',
-          railConfig,
-        ),
-      )
+      ..add(DiagnosticsProperty<NavigationRailConfig>('railConf', railConf))
       ..add(DiagnosticsProperty<bool>('extended', extended));
   }
 }

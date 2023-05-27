@@ -85,7 +85,7 @@ class PrimaryNavigation extends SlotLayout {
             ? const SlotKey('primaryNavigation1')
             : SlotID.primaryNavigation,
         builder: (final BuildContext context) => StandardNavigationRail.builder(
-          railConfig: railConfig,
+          railConf: railConfig,
           extended: extended,
         ),
       );
