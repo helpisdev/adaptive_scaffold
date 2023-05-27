@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-05-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`adaptive_scaffold` - `v0.4.1+2`](#adaptive_scaffold---v0412)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.1+2`
+
+ - **FIX**(nav_rail): Properly restrain navigation rail destinations to avoid overflowing. ([ab8a39cf](https://github.com/helpisdev/adaptive_scaffold.git/commit/ab8a39cf130264b64a0effdd18b1e6ad0e9c87ac))
+
+## 0.4.1+2
+
+ - **FIX**(nav_rail): Properly restrain navigation rail destinations to avoid overflowing. ([ab8a39cf](https://github.com/helpisdev/adaptive_scaffold.git/commit/ab8a39cf130264b64a0effdd18b1e6ad0e9c87ac))
+
+
 ## 2023-05-26
 
 ### Changes
