@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.2`](#adaptive_scaffold---v042)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.2`
+
+ - **FEAT**(appbar): Add back button config. ([e7aacfb5](https://github.com/helpisdev/adaptive_scaffold.git/commit/e7aacfb5459e047b1c56d5678f2a25069e0dd920))
+
+## 0.4.2
+
+ - **FEAT**(appbar): Add back button config. ([e7aacfb5](https://github.com/helpisdev/adaptive_scaffold.git/commit/e7aacfb5459e047b1c56d5678f2a25069e0dd920))
+
+
+## 2023-05-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.1+2`](#adaptive_scaffold---v0412)
 
 ---
