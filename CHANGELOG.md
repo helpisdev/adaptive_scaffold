@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.2+1`](#adaptive_scaffold---v0421)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.2+1`
+
+ - **FIX**(appbar): Make sure title widget displays. ([f4a5cc6c](https://github.com/helpisdev/adaptive_scaffold.git/commit/f4a5cc6cef6940dd0f672b55f99afa3b1a883051))
+
+## 0.4.2+1
+
+ - **FIX**(appbar): Make sure title widget displays. ([f4a5cc6c](https://github.com/helpisdev/adaptive_scaffold.git/commit/f4a5cc6cef6940dd0f672b55f99afa3b1a883051))
+
+
+## 2023-05-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.2`](#adaptive_scaffold---v042)
 
 ---
