@@ -185,7 +185,11 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
           extendBody: conf.extendBody,
           extendBodyBehindAppBar: conf.extendBodyBehindAppBar,
           restorationId: conf.restorationId,
-          appBar: _configAppBar(context, userDefinedAppBar, useDrawer),
+          appBar: AdaptiveAppBar.generateFrom(
+            context: context,
+            useDrawer: useDrawer,
+            appBar: userDefinedAppBar,
+          ),
           drawer: _configDrawer(drawer),
           endDrawer: _configDrawer(drawer, isEndDrawer: true),
           body: Builder(
@@ -316,71 +320,6 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
       return res;
     }
     return null;
-  }
-
-  PreferredSizeWidget? _configAppBar(
-    final BuildContext context,
-    final AdaptiveAppBar? userDefinedAppBar,
-    final bool useDrawer,
-  ) {
-    final bool useAppBar = PredefinedBreakpoint.standard
-        .withPlatform(DeviceType.desktop)
-        .isActive(context);
-    return useAppBar
-        ? AdaptiveAppBar.fromContext(
-            context: context,
-            leading: userDefinedAppBar?.customLeading ??
-                Builder(
-                  builder: (final BuildContext context) => Visibility(
-                    visible: useDrawer,
-                    child: IconButton(
-                      onPressed: Scaffold.of(context).openDrawer,
-                      icon: Icon(
-                        Icons.menu,
-                        semanticLabel: MaterialLocalizations.of(
-                          context,
-                        ).openAppDrawerTooltip,
-                      ),
-                    ),
-                  ),
-                ),
-            actions: userDefinedAppBar?.actions,
-            backgroundColor: userDefinedAppBar?.backgroundColor,
-            foregroundColor: userDefinedAppBar?.foregroundColor,
-            shadowColor: userDefinedAppBar?.shadowColor,
-            surfaceTintColor: userDefinedAppBar?.surfaceTintColor,
-            actionsIconTheme: userDefinedAppBar?.actionsIconTheme,
-            iconTheme: userDefinedAppBar?.iconTheme,
-            key: userDefinedAppBar?.key,
-            bottom: userDefinedAppBar?.bottom,
-            notificationPredicate: userDefinedAppBar?.notificationPredicate ??
-                defaultScrollNotificationPredicate,
-            shape: userDefinedAppBar?.shape,
-            systemOverlayStyle: userDefinedAppBar?.systemOverlayStyle,
-            titleTextStyle: userDefinedAppBar?.titleTextStyle,
-            toolbarTextStyle: userDefinedAppBar?.toolbarTextStyle,
-            flexibleSpace: userDefinedAppBar?.flexibleSpace,
-            onWillPopCallback: userDefinedAppBar?.onWillPopCallback,
-            onWindowResize: userDefinedAppBar?.onWindowResize,
-            title: userDefinedAppBar?.title,
-            automaticallyImplyLeading:
-                userDefinedAppBar?.automaticallyImplyLeading ?? true,
-            excludeHeaderSemantics:
-                userDefinedAppBar?.excludeHeaderSemantics ?? false,
-            primary: userDefinedAppBar?.primary ?? true,
-            centerTitle: userDefinedAppBar?.centerTitle,
-            bottomOpacity: userDefinedAppBar?.bottomOpacity ?? 1,
-            titleSpacing: userDefinedAppBar?.titleSpacing ??
-                NavigationToolbar.kMiddleSpacing,
-            toolbarOpacity: userDefinedAppBar?.toolbarOpacity ?? 1,
-            elevation: userDefinedAppBar?.elevation,
-            leadingWidth: userDefinedAppBar?.leadingWidth,
-            scrolledUnderElevation: userDefinedAppBar?.scrolledUnderElevation,
-            toolbarHeight: userDefinedAppBar?.toolbarHeight,
-            forceMaterialTransparency:
-                userDefinedAppBar?.forceMaterialTransparency ?? false,
-          ) as PreferredSizeWidget
-        : null;
   }
 
   @override
