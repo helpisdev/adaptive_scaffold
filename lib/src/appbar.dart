@@ -38,6 +38,7 @@ mixin AdaptiveAppBar {
   abstract final double? toolbarHeight;
   abstract final bool forceMaterialTransparency;
   abstract final dynamic customLeading;
+  abstract final List<Widget> trailing;
   abstract final Key? key;
   abstract final VoidCallback? onWillPopCallback;
   abstract final WindowResizeCallback? onWindowResize;
@@ -66,6 +67,7 @@ mixin AdaptiveAppBar {
     final TextStyle? toolbarTextStyle,
     final Widget? flexibleSpace,
     final dynamic leading,
+    final List<Widget> trailing = const <Widget>[],
     final Widget? title,
     final bool automaticallyImplyLeading = true,
     final bool excludeHeaderSemantics = false,
@@ -94,6 +96,7 @@ mixin AdaptiveAppBar {
         leading: leading is List<Widget>
             ? leading
             : <Widget>[if (leading != null) leading],
+        trailing: trailing,
         automaticallyImplyLeading: automaticallyImplyLeading,
         onWillPopCallback: onWillPopCallback,
         onWindowResize: onWindowResize,
@@ -180,6 +183,7 @@ mixin AdaptiveAppBar {
       scrolledUnderElevation: appBar?.scrolledUnderElevation,
       toolbarHeight: appBar?.toolbarHeight,
       forceMaterialTransparency: appBar?.forceMaterialTransparency ?? false,
+      trailing: appBar?.trailing ?? <Widget>[],
       leading: appBar?.customLeading ??
           Builder(
             builder: (final BuildContext context) => Visibility(
@@ -361,4 +365,7 @@ class AdaptiveMaterialAppBar extends AppBar with AdaptiveAppBar {
 
   @override
   ButtonStyle? get backButtonStyle => null;
+
+  @override
+  List<Widget> get trailing => <Widget>[];
 }
