@@ -90,7 +90,7 @@ mixin AdaptiveAppBar {
     );
     if (desktopBreakpoint.isActive(context)) {
       return AdaptiveGTKAppBar(
-        middle: title,
+        title: title,
         leading: leading is List<Widget>
             ? leading
             : <Widget>[if (leading != null) leading],
@@ -210,11 +210,11 @@ mixin AdaptiveAppBar {
 class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
   const AdaptiveGTKAppBar({
     final bool automaticallyImplyLeading = true,
+    final Widget? title,
     super.backButtonColor,
     super.backButtonStyle,
     super.trailing,
     super.leading,
-    super.middle,
     super.bottom,
     super.height,
     super.middleSpacing,
@@ -228,7 +228,7 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
     super.onWindowResize,
     super.onWillPopCallback,
     super.key,
-  }) : super(autoImplyLeading: automaticallyImplyLeading);
+  }) : super(autoImplyLeading: automaticallyImplyLeading, middle: title);
 
   @override
   List<Widget>? get actions => null;
@@ -292,7 +292,7 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
   SystemUiOverlayStyle? get systemOverlayStyle => null;
 
   @override
-  Widget? get title => null;
+  Widget? get title => middle;
 
   @override
   double? get titleSpacing => null;
@@ -304,7 +304,7 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
   double? get toolbarHeight => null;
 
   @override
-  double get toolbarOpacity => 0;
+  double get toolbarOpacity => 1;
 
   @override
   TextStyle? get toolbarTextStyle => null;
