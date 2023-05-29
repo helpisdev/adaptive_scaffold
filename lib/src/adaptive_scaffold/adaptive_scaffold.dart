@@ -240,7 +240,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                 ),
               );
 
-              if (useDrawer) {
+              if (useDrawer && !PLATFORM.isMobile) {
                 final AdaptiveScrollbarConfig scrollbar = conf.scrollbarConfig;
                 final ScrollController controller =
                     scrollbar.controller ?? ScrollController();
