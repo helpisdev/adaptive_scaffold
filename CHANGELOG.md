@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-05-30
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`adaptive_scaffold` - `v0.4.4+1`](#adaptive_scaffold---v0441)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.4+1`
+
+ - **FIX**(animations): Use if-statement and defined instances to check for animation type. ([3dfcacc6](https://github.com/helpisdev/adaptive_scaffold.git/commit/3dfcacc622df4bce7ef51a20b2eee6560332ddeb))
+ - **FIX**(drawer): React to changes ondrawer destination clicks. ([a627380f](https://github.com/helpisdev/adaptive_scaffold.git/commit/a627380fc5480e84bdfd0b3c886778c69037a9d6))
+ - **FIX**(scrollbar): Missing constraints when passed brekpoint with infinity bound. ([e2f1b987](https://github.com/helpisdev/adaptive_scaffold.git/commit/e2f1b987e539e09e685f8fb30f6d7eb523dd3f0a))
+
+## 0.4.4+1
+
+ - **FIX**(animations): Use if-statement and defined instances to check for animation type. ([3dfcacc6](https://github.com/helpisdev/adaptive_scaffold.git/commit/3dfcacc622df4bce7ef51a20b2eee6560332ddeb))
+ - **FIX**(drawer): React to changes ondrawer destination clicks. ([a627380f](https://github.com/helpisdev/adaptive_scaffold.git/commit/a627380fc5480e84bdfd0b3c886778c69037a9d6))
+ - **FIX**(scrollbar): Missing constraints when passed brekpoint with infinity bound. ([e2f1b987](https://github.com/helpisdev/adaptive_scaffold.git/commit/e2f1b987e539e09e685f8fb30f6d7eb523dd3f0a))
+
+
 ## 2023-05-29
 
 ### Changes
