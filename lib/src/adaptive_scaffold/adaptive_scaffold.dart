@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:math';
+
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +92,10 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   late AdaptiveScaffoldConfig conf = widget.config;
   late int? index = widget.config.navigationRailConfig.selectedIndex;
   Key? _scrollbarKey;
+
+  static const BreakpointGenerator mobile = BreakpointGenerator.generate(
+    type: DeviceType.mobile,
+  );
 
   void changeIndex(final int index, final BuildContext context) {
     final NavigationRailConfig config = conf.navigationRailConfig;
@@ -242,11 +248,16 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                   ),
                 );
 
-                if (useDrawer && !PLATFORM.isMobile) {
+                if (useDrawer && !mobile.isActive(context)) {
                   final AdaptiveScrollbarConfig scrollbar =
                       conf.scrollbarConfig;
                   final ScrollController controller =
                       scrollbar.controller ?? ScrollController();
+                  final double desktopEnd = PredefinedBreakpoint.small.end!;
+                  double minimumScrollbarWidth = breakpoint.end ?? desktopEnd;
+                  if (minimumScrollbarWidth == double.infinity) {
+                    minimumScrollbarWidth = max(context.width, desktopEnd);
+                  }
                   return AdaptiveScrollbar(
                     key: _scrollbarKey,
                     position: ScrollbarPosition.bottom,
@@ -268,10 +279,10 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                     child: SingleChildScrollView(
                       controller: controller,
                       scrollDirection: Axis.horizontal,
-                      child: Container(
-                        width: context.width,
+                      child: ConstrainedBox(
                         constraints: BoxConstraints(
-                          minWidth: breakpoint.end ?? 0,
+                          minWidth: minimumScrollbarWidth,
+                          maxWidth: minimumScrollbarWidth,
                           maxHeight: context.height,
                         ),
                         child: child,
