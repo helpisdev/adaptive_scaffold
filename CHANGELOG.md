@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-05-29
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`adaptive_scaffold` - `v0.4.3+1`](#adaptive_scaffold---v0431)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.3+1`
+
+ - **FIX**(scrollbar): Don't show scrollbar on mobile devices. ([b21e8d47](https://github.com/helpisdev/adaptive_scaffold.git/commit/b21e8d479a841999b6761d950832ab63478c4236))
+
+## 0.4.3+1
+
+ - **FIX**(scrollbar): Don't show scrollbar on mobile devices. ([b21e8d47](https://github.com/helpisdev/adaptive_scaffold.git/commit/b21e8d479a841999b6761d950832ab63478c4236))
+
+
 ## 2023-05-27
 
 ### Changes
