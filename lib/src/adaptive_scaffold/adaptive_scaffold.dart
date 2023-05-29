@@ -209,22 +209,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                   primaryNavigation: PrimaryNavigation(
                     medium: conf.breakpointConfig.medium,
                     large: conf.breakpointConfig.large,
-                    navigationRailConfig: conf.navigationRailConfig.copyWith(
-                      updates: <String, dynamic>{
-                        'selectedIndex': index,
-                        'onDestinationSelected': (
-                          final int index,
-                          final NavigationDestination destination,
-                          final NavigationRailConfig config,
-                        ) =>
-                            changeIndexWithRailInfo(
-                              index: index,
-                              destination: destination,
-                              config: config,
-                              context: context,
-                            ),
-                      },
-                    ),
+                    navigationRailConfig: _getNavRailConf(context),
                   ),
                   bottomNavigation: BottomNavigation.maybeEnable(
                     context: context,
@@ -308,23 +293,14 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
       builder: (final BuildContext context) {
         final Widget? drawer = AdaptiveDrawer.maybeOf(
           context: context,
-          config: adaptiveDrawer,
-          navRailConf: conf.navigationRailConfig.copyWith(
+          config: adaptiveDrawer.copyWith(
             updates: <String, dynamic>{
               'selectedIndex': index,
-              'onDestinationSelected': (
-                final int index,
-                final NavigationDestination destination,
-                final NavigationRailConfig config,
-              ) =>
-                  changeIndexWithRailInfo(
-                    index: index,
-                    destination: destination,
-                    config: config,
-                    context: context,
-                  ),
+              'onDestinationSelected': (final int index) =>
+                  changeIndex(index, context),
             },
           ),
+          navRailConf: _getNavRailConf(context),
           endDrawer: isEndDrawer,
         );
         hasDrawer = drawer != null;
@@ -336,6 +312,43 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     }
     return null;
   }
+
+  NavigationRailConfig _getNavRailConf(final BuildContext context) =>
+      NavigationRailConfig(
+        destinations: conf.navigationRailConfig.destinations,
+        selectedIndex: index,
+        onDestinationSelected: (
+          final int index,
+          final NavigationDestination destination,
+          final NavigationRailConfig config,
+        ) =>
+            changeIndexWithRailInfo(
+          index: index,
+          destination: destination,
+          config: config,
+          context: context,
+        ),
+        width: conf.navigationRailConfig.width,
+        extendedWidth: conf.navigationRailConfig.extendedWidth,
+        leading: conf.navigationRailConfig.leading,
+        leadingExtended: conf.navigationRailConfig.leadingExtended,
+        trailing: conf.navigationRailConfig.trailing,
+        key: conf.navigationRailConfig.key,
+        backgroundColor: conf.navigationRailConfig.backgroundColor,
+        elevation: conf.navigationRailConfig.elevation,
+        groupAlignment: conf.navigationRailConfig.groupAlignment,
+        labelType: conf.navigationRailConfig.labelType,
+        unselectedLabelTextStyle:
+            conf.navigationRailConfig.unselectedLabelTextStyle,
+        selectedLabelTextStyle:
+            conf.navigationRailConfig.selectedLabelTextStyle,
+        unselectedIconTheme: conf.navigationRailConfig.unselectedIconTheme,
+        selectedIconTheme: conf.navigationRailConfig.selectedIconTheme,
+        useIndicator: conf.navigationRailConfig.useIndicator,
+        indicatorColor: conf.navigationRailConfig.indicatorColor,
+        indicatorShape: conf.navigationRailConfig.indicatorShape,
+        padding: conf.navigationRailConfig.padding,
+      );
 
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
