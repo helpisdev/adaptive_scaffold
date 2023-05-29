@@ -14,45 +14,41 @@ sealed class AdaptiveLayoutAnimation extends StatelessWidget {
   final Animation<double> animation;
 
   static AnimationBuilder builder<T extends AdaptiveLayoutAnimation>() => (
-        final Widget child,
-        final Animation<double> animation,
-      ) =>
-          switch (T) {
-            StayOnScreenAnimation =>
-              StayOnScreenAnimation(animation: animation, child: child),
-            FadeOutAnimation =>
-              FadeOutAnimation(animation: animation, child: child),
-            FadeInAnimation =>
-              FadeInAnimation(animation: animation, child: child),
-            RightOutInAnimation =>
-              RightOutInAnimation(animation: animation, child: child),
-            BottomToTopAnimation =>
-              BottomToTopAnimation(animation: animation, child: child),
-            TopToBottomAnimation =>
-              TopToBottomAnimation(animation: animation, child: child),
-            LeftOutInAnimation =>
-              LeftOutInAnimation(animation: animation, child: child),
-            LeftInOutAnimation =>
-              LeftInOutAnimation(animation: animation, child: child),
-            // The compiler should catch this, since parent class is sealed and
-            // child classes are final, and T has to conform to
-            // AdaptiveLayoutAnimation bound. Type bounds, sealed and final
-            // classes are known at compile time, so it would be impossible to
-            // pass a non-conforming type as a type argument. Unfortunately
-            // though this does not currently work. The reason it does not work
-            // is because type bounds are optional in Dart, and it would result
-            // at a runtime error. If no-type bounds are provided when calling
-            // the builder, it would be best if `dynamic` was inferred, cause
-            // then it would be a compile time error (passing dynamic by hand
-            // makes the compiler complain, but passing no type argument
-            // doesn't).
-            // TODO(helpisdev): Open an issue to the official Dart repo.
-            _ => throw Exception(
-                'A type argument conforming to AdaptiveLayoutAnimation type '
-                'bound should be specified when calling '
-                '`AdaptiveLayoutAnimation.builder`.',
-              )
-          };
+        final Widget c,
+        final Animation<double> a,
+      ) {
+        StayOnScreenAnimation stayOnScreen;
+        FadeOutAnimation fadeOut;
+        FadeInAnimation fadeIn;
+        RightOutInAnimation rightOutIn;
+        BottomToTopAnimation bottomToTop;
+        TopToBottomAnimation topToBottom;
+        LeftOutInAnimation leftOutIn;
+        LeftInOutAnimation leftInOut;
+        if ((stayOnScreen = StayOnScreenAnimation._(c, a)) is T) {
+          return stayOnScreen;
+        } else if ((fadeOut = FadeOutAnimation._(c, a)) is T) {
+          return fadeOut;
+        } else if ((fadeIn = FadeInAnimation._(c, a)) is T) {
+          return fadeIn;
+        } else if ((rightOutIn = RightOutInAnimation._(c, a)) is T) {
+          return rightOutIn;
+        } else if ((bottomToTop = BottomToTopAnimation._(c, a)) is T) {
+          return bottomToTop;
+        } else if ((topToBottom = TopToBottomAnimation._(c, a)) is T) {
+          return topToBottom;
+        } else if ((leftOutIn = LeftOutInAnimation._(c, a)) is T) {
+          return leftOutIn;
+        } else if ((leftInOut = LeftInOutAnimation._(c, a)) is T) {
+          return leftInOut;
+        } else {
+          return throw Exception(
+            'A type argument conforming to AdaptiveLayoutAnimation type '
+            'bound should be specified when calling '
+            '`AdaptiveLayoutAnimation.builder`.',
+          );
+        }
+      };
 
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
@@ -70,6 +66,11 @@ final class StayOnScreenAnimation extends AdaptiveLayoutAnimation {
     required super.animation,
     super.key,
   });
+
+  const StayOnScreenAnimation._(
+    final Widget child,
+    final Animation<double> animation,
+  ) : super(child: child, animation: animation);
 
   @override
   Widget build(final BuildContext context) => FadeTransition(
@@ -93,6 +94,11 @@ final class FadeOutAnimation extends AdaptiveLayoutAnimation {
     required super.animation,
     super.key,
   });
+
+  const FadeOutAnimation._(
+    final Widget child,
+    final Animation<double> animation,
+  ) : super(child: child, animation: animation);
 
   @override
   Widget build(final BuildContext context) => FadeTransition(
@@ -120,6 +126,9 @@ final class FadeInAnimation extends AdaptiveLayoutAnimation {
     super.key,
   });
 
+  const FadeInAnimation._(final Widget child, final Animation<double> animation)
+      : super(child: child, animation: animation);
+
   @override
   Widget build(final BuildContext context) => FadeTransition(
         opacity: CurvedAnimation(parent: animation, curve: Curves.easeInCubic),
@@ -142,6 +151,11 @@ final class RightOutInAnimation extends AdaptiveLayoutAnimation {
     required super.animation,
     super.key,
   });
+
+  const RightOutInAnimation._(
+    final Widget child,
+    final Animation<double> animation,
+  ) : super(child: child, animation: animation);
 
   @override
   AnimatedWidget build(final BuildContext context) => SlideTransition(
@@ -169,6 +183,11 @@ final class BottomToTopAnimation extends AdaptiveLayoutAnimation {
     super.key,
   });
 
+  const BottomToTopAnimation._(
+    final Widget child,
+    final Animation<double> animation,
+  ) : super(child: child, animation: animation);
+
   @override
   AnimatedWidget build(final BuildContext context) => SlideTransition(
         position: Tween<Offset>(
@@ -194,6 +213,11 @@ final class TopToBottomAnimation extends AdaptiveLayoutAnimation {
     required super.animation,
     super.key,
   });
+
+  const TopToBottomAnimation._(
+    final Widget child,
+    final Animation<double> animation,
+  ) : super(child: child, animation: animation);
 
   @override
   AnimatedWidget build(final BuildContext context) => SlideTransition(
@@ -221,6 +245,11 @@ final class LeftOutInAnimation extends AdaptiveLayoutAnimation {
     super.key,
   });
 
+  const LeftOutInAnimation._(
+    final Widget child,
+    final Animation<double> animation,
+  ) : super(child: child, animation: animation);
+
   @override
   AnimatedWidget build(final BuildContext context) => SlideTransition(
         position: Tween<Offset>(
@@ -246,6 +275,11 @@ final class LeftInOutAnimation extends AdaptiveLayoutAnimation {
     required super.animation,
     super.key,
   });
+
+  const LeftInOutAnimation._(
+    final Widget child,
+    final Animation<double> animation,
+  ) : super(child: child, animation: animation);
 
   @override
   AnimatedWidget build(final BuildContext context) => SlideTransition(
