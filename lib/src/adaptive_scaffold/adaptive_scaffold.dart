@@ -160,124 +160,128 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     final Breakpoint breakpoint = drawer.breakpoint;
     final bool useDrawer = breakpoint.isActive(context) &&
         (drawer.useDrawer || drawer.useEndDrawer);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: SizedBox(
-        width: context.width,
-        height: context.height,
-        child: Scaffold(
-          onDrawerChanged: drawer.onDrawerChanged,
-          onEndDrawerChanged: drawer.onEndDrawerChanged,
-          drawerDragStartBehavior: drawer.drawerDragStartBehavior,
-          drawerScrimColor: drawer.drawerScrimColor,
-          drawerEdgeDragWidth: drawer.drawerEdgeDragWidth,
-          drawerEnableOpenDragGesture: drawer.drawerEnableOpenDragGesture,
-          endDrawerEnableOpenDragGesture: drawer.endDrawerEnableOpenDragGesture,
-          floatingActionButton: conf.floatingActionButton,
-          floatingActionButtonLocation: conf.floatingActionButtonLocation,
-          floatingActionButtonAnimator: conf.floatingActionButtonAnimator,
-          persistentFooterButtons: conf.persistentFooterButtons,
-          persistentFooterAlignment: conf.persistentFooterAlignment,
-          bottomSheet: conf.bottomSheet,
-          backgroundColor: conf.backgroundColor,
-          resizeToAvoidBottomInset: conf.resizeToAvoidBottomInset,
-          primary: conf.primary,
-          extendBody: conf.extendBody,
-          extendBodyBehindAppBar: conf.extendBodyBehindAppBar,
-          restorationId: conf.restorationId,
-          appBar: AdaptiveAppBar.generateFrom(
-            context: context,
-            useDrawer: useDrawer,
-            appBar: userDefinedAppBar,
-          ),
-          drawer: _configDrawer(drawer),
-          endDrawer: _configDrawer(drawer, isEndDrawer: true),
-          body: Builder(
-            builder: (final BuildContext context) {
-              final Widget child = AdaptiveLayout(
-                bodyOrientation: conf.bodyConfig.orientation,
-                bodyRatio: conf.bodyConfig.ratio,
-                useInternalAnimations: conf.useInternalAnimations,
-                primaryNavigation: PrimaryNavigation(
-                  medium: conf.breakpointConfig.medium,
-                  large: conf.breakpointConfig.large,
-                  navigationRailConfig: conf.navigationRailConfig.copyWith(
-                    updates: <String, dynamic>{
-                      'selectedIndex': index,
-                      'onDestinationSelected': (
-                        final int index,
-                        final NavigationDestination destination,
-                        final NavigationRailConfig config,
-                      ) =>
-                          changeIndexWithRailInfo(
-                            index: index,
-                            destination: destination,
-                            config: config,
-                            context: context,
-                          ),
-                    },
-                  ),
-                ),
-                bottomNavigation: BottomNavigation.maybeEnable(
-                  context: context,
-                  drawerBreakpoint: drawer.breakpoint,
-                  useDrawer: drawer.useDrawer,
-                  small: conf.breakpointConfig.small,
-                  destinations: conf.navigationRailConfig.destinations,
-                  selectedIndex: index,
-                  onDestinationSelected: (final int i) =>
-                      changeIndex(i, context),
-                  useSalomonBar: conf.useSalomonBar,
-                  iconSize: conf.iconSize,
-                ),
-                body: SlotLayoutBody.primary(
-                  config: conf.bodyConfig,
-                  breakpoints: conf.breakpointConfig,
-                ),
-                secondaryBody: SlotLayoutBody.secondary(
-                  config: conf.bodyConfig,
-                  breakpoints: conf.breakpointConfig,
-                ),
-              );
-
-              if (useDrawer && !PLATFORM.isMobile) {
-                final AdaptiveScrollbarConfig scrollbar = conf.scrollbarConfig;
-                final ScrollController controller =
-                    scrollbar.controller ?? ScrollController();
-                return AdaptiveScrollbar(
-                  key: _scrollbarKey,
-                  position: ScrollbarPosition.bottom,
-                  controller: controller,
-                  width: scrollbar.width,
-                  sliderHeight: scrollbar.sliderHeight,
-                  sliderChild: scrollbar.sliderChild,
-                  sliderDefaultColor: scrollbar.sliderDefaultColor,
-                  sliderActiveColor: scrollbar.sliderActiveColor,
-                  underColor: scrollbar.underColor,
-                  underSpacing: scrollbar.underSpacing,
-                  sliderSpacing: scrollbar.sliderSpacing,
-                  scrollToClickDelta: scrollbar.scrollToClickDelta,
-                  scrollToClickFirstDelay: scrollbar.scrollToClickFirstDelay,
-                  scrollToClickOtherDelay: scrollbar.scrollToClickOtherDelay,
-                  underDecoration: scrollbar.underDecoration,
-                  sliderDecoration: scrollbar.sliderDecoration,
-                  sliderActiveDecoration: scrollbar.sliderActiveDecoration,
-                  child: SingleChildScrollView(
-                    controller: controller,
-                    scrollDirection: Axis.horizontal,
-                    child: Container(
-                      width: context.width,
-                      constraints: BoxConstraints(
-                        minWidth: breakpoint.end ?? 0,
-                        maxHeight: context.height,
-                      ),
-                      child: child,
+    return SafeArea(
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: SizedBox(
+          width: context.width,
+          height: context.height,
+          child: Scaffold(
+            onDrawerChanged: drawer.onDrawerChanged,
+            onEndDrawerChanged: drawer.onEndDrawerChanged,
+            drawerDragStartBehavior: drawer.drawerDragStartBehavior,
+            drawerScrimColor: drawer.drawerScrimColor,
+            drawerEdgeDragWidth: drawer.drawerEdgeDragWidth,
+            drawerEnableOpenDragGesture: drawer.drawerEnableOpenDragGesture,
+            endDrawerEnableOpenDragGesture:
+                drawer.endDrawerEnableOpenDragGesture,
+            floatingActionButton: conf.floatingActionButton,
+            floatingActionButtonLocation: conf.floatingActionButtonLocation,
+            floatingActionButtonAnimator: conf.floatingActionButtonAnimator,
+            persistentFooterButtons: conf.persistentFooterButtons,
+            persistentFooterAlignment: conf.persistentFooterAlignment,
+            bottomSheet: conf.bottomSheet,
+            backgroundColor: conf.backgroundColor,
+            resizeToAvoidBottomInset: conf.resizeToAvoidBottomInset,
+            primary: conf.primary,
+            extendBody: conf.extendBody,
+            extendBodyBehindAppBar: conf.extendBodyBehindAppBar,
+            restorationId: conf.restorationId,
+            appBar: AdaptiveAppBar.generateFrom(
+              context: context,
+              useDrawer: useDrawer,
+              appBar: userDefinedAppBar,
+            ),
+            drawer: _configDrawer(drawer),
+            endDrawer: _configDrawer(drawer, isEndDrawer: true),
+            body: Builder(
+              builder: (final BuildContext context) {
+                final Widget child = AdaptiveLayout(
+                  bodyOrientation: conf.bodyConfig.orientation,
+                  bodyRatio: conf.bodyConfig.ratio,
+                  useInternalAnimations: conf.useInternalAnimations,
+                  primaryNavigation: PrimaryNavigation(
+                    medium: conf.breakpointConfig.medium,
+                    large: conf.breakpointConfig.large,
+                    navigationRailConfig: conf.navigationRailConfig.copyWith(
+                      updates: <String, dynamic>{
+                        'selectedIndex': index,
+                        'onDestinationSelected': (
+                          final int index,
+                          final NavigationDestination destination,
+                          final NavigationRailConfig config,
+                        ) =>
+                            changeIndexWithRailInfo(
+                              index: index,
+                              destination: destination,
+                              config: config,
+                              context: context,
+                            ),
+                      },
                     ),
                   ),
+                  bottomNavigation: BottomNavigation.maybeEnable(
+                    context: context,
+                    drawerBreakpoint: drawer.breakpoint,
+                    useDrawer: drawer.useDrawer,
+                    small: conf.breakpointConfig.small,
+                    destinations: conf.navigationRailConfig.destinations,
+                    selectedIndex: index,
+                    onDestinationSelected: (final int i) =>
+                        changeIndex(i, context),
+                    useSalomonBar: conf.useSalomonBar,
+                    iconSize: conf.iconSize,
+                  ),
+                  body: SlotLayoutBody.primary(
+                    config: conf.bodyConfig,
+                    breakpoints: conf.breakpointConfig,
+                  ),
+                  secondaryBody: SlotLayoutBody.secondary(
+                    config: conf.bodyConfig,
+                    breakpoints: conf.breakpointConfig,
+                  ),
                 );
-              }
-              return child;
-            },
+
+                if (useDrawer && !PLATFORM.isMobile) {
+                  final AdaptiveScrollbarConfig scrollbar =
+                      conf.scrollbarConfig;
+                  final ScrollController controller =
+                      scrollbar.controller ?? ScrollController();
+                  return AdaptiveScrollbar(
+                    key: _scrollbarKey,
+                    position: ScrollbarPosition.bottom,
+                    controller: controller,
+                    width: scrollbar.width,
+                    sliderHeight: scrollbar.sliderHeight,
+                    sliderChild: scrollbar.sliderChild,
+                    sliderDefaultColor: scrollbar.sliderDefaultColor,
+                    sliderActiveColor: scrollbar.sliderActiveColor,
+                    underColor: scrollbar.underColor,
+                    underSpacing: scrollbar.underSpacing,
+                    sliderSpacing: scrollbar.sliderSpacing,
+                    scrollToClickDelta: scrollbar.scrollToClickDelta,
+                    scrollToClickFirstDelay: scrollbar.scrollToClickFirstDelay,
+                    scrollToClickOtherDelay: scrollbar.scrollToClickOtherDelay,
+                    underDecoration: scrollbar.underDecoration,
+                    sliderDecoration: scrollbar.sliderDecoration,
+                    sliderActiveDecoration: scrollbar.sliderActiveDecoration,
+                    child: SingleChildScrollView(
+                      controller: controller,
+                      scrollDirection: Axis.horizontal,
+                      child: Container(
+                        width: context.width,
+                        constraints: BoxConstraints(
+                          minWidth: breakpoint.end ?? 0,
+                          maxHeight: context.height,
+                        ),
+                        child: child,
+                      ),
+                    ),
+                  );
+                }
+                return child;
+              },
+            ),
           ),
         ),
       ),

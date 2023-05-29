@@ -44,12 +44,19 @@ mixin AdaptiveAppBar {
   abstract final WindowResizeCallback? onWindowResize;
   abstract final ButtonStyle? backButtonStyle;
   abstract final Color? backButtonColor;
+  abstract final Breakpoint appBarBreakpoint;
+
+  static const Breakpoint desktop = BreakpointGenerator.generate(
+    begin: 0,
+    type: DeviceType.desktop,
+  );
 
   /// Constructs a default [AppBar] with predefined [leadingWidth] and
   /// [titleSpacing]. Inspired by the AdaptiveAppBar implementation of
   /// material.io.
   static AdaptiveAppBar fromContext({
     required final BuildContext context,
+    final Breakpoint appBarBreakpoint = desktop,
     final Color? backgroundColor,
     final Color? foregroundColor,
     final Color? shadowColor,
@@ -86,11 +93,7 @@ mixin AdaptiveAppBar {
     final ButtonStyle? backButtonStyle,
     final Color? backButtonColor,
   }) {
-    const BreakpointGenerator desktopBreakpoint = BreakpointGenerator.generate(
-      begin: 0,
-      type: DeviceType.desktop,
-    );
-    if (desktopBreakpoint.isActive(context)) {
+    if (desktop.isActive(context)) {
       return AdaptiveGTKAppBar(
         title: title,
         leading: leading is List<Widget>
@@ -102,6 +105,7 @@ mixin AdaptiveAppBar {
         onWindowResize: onWindowResize,
         backButtonStyle: backButtonStyle,
         backButtonColor: backButtonColor,
+        appBarBreakpoint: appBarBreakpoint,
       );
     }
 
@@ -139,22 +143,24 @@ mixin AdaptiveAppBar {
       titleTextStyle: titleTextStyle,
       systemOverlayStyle: systemOverlayStyle,
       forceMaterialTransparency: forceMaterialTransparency,
+      appBarBreakpoint: appBarBreakpoint,
     );
   }
 
   static PreferredSizeWidget? generateFrom({
     required final BuildContext context,
+    final Breakpoint breakpoint = AdaptiveAppBar.desktop,
     final bool useDrawer = false,
     final AdaptiveAppBar? appBar,
   }) {
-    final bool useAppBar = PredefinedBreakpoint.standard
-        .withPlatform(DeviceType.desktop)
-        .isActive(context);
-    if (!useAppBar) {
+    final Breakpoint bp = appBar?.appBarBreakpoint ?? breakpoint;
+    final bool shouldUseAppBar = bp.isActive(context);
+    if (!shouldUseAppBar) {
       return null;
     }
     return AdaptiveAppBar.fromContext(
       context: context,
+      appBarBreakpoint: bp,
       backgroundColor: appBar?.backgroundColor,
       foregroundColor: appBar?.foregroundColor,
       shadowColor: appBar?.shadowColor,
@@ -215,6 +221,7 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
   const AdaptiveGTKAppBar({
     final bool automaticallyImplyLeading = true,
     final Widget? title,
+    this.appBarBreakpoint = AdaptiveAppBar.desktop,
     super.backButtonColor,
     super.backButtonStyle,
     super.trailing,
@@ -315,10 +322,14 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
 
   @override
   List<Widget> get customLeading => leading;
+
+  @override
+  final Breakpoint appBarBreakpoint;
 }
 
 class AdaptiveMaterialAppBar extends AppBar with AdaptiveAppBar {
   AdaptiveMaterialAppBar({
+    this.appBarBreakpoint = AdaptiveAppBar.desktop,
     super.leading,
     super.automaticallyImplyLeading,
     super.title,
@@ -368,4 +379,7 @@ class AdaptiveMaterialAppBar extends AppBar with AdaptiveAppBar {
 
   @override
   List<Widget> get trailing => <Widget>[];
+
+  @override
+  final Breakpoint appBarBreakpoint;
 }
