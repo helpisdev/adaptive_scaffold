@@ -161,11 +161,13 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
 
   @override
   Widget build(final BuildContext context) {
-    final AdaptiveDrawerConfig drawer = conf.drawerConfig;
+    final AdaptiveDrawerConfig drawerConf = conf.drawerConfig;
     final AdaptiveAppBar? userDefinedAppBar = conf.appBar;
-    final Breakpoint breakpoint = drawer.breakpoint;
+    final Breakpoint breakpoint = drawerConf.breakpoint;
     final bool useDrawer = breakpoint.isActive(context) &&
-        (drawer.useDrawer || drawer.useEndDrawer);
+        (drawerConf.useDrawer || drawerConf.useEndDrawer);
+    final Widget? drawer = _configDrawer(drawerConf);
+    final Widget? endDrawer = _configDrawer(drawerConf, isEndDrawer: true);
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.ltr,
@@ -173,14 +175,15 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
           width: context.width,
           height: context.height,
           child: Scaffold(
-            onDrawerChanged: drawer.onDrawerChanged,
-            onEndDrawerChanged: drawer.onEndDrawerChanged,
-            drawerDragStartBehavior: drawer.drawerDragStartBehavior,
-            drawerScrimColor: drawer.drawerScrimColor,
-            drawerEdgeDragWidth: drawer.drawerEdgeDragWidth,
-            drawerEnableOpenDragGesture: drawer.drawerEnableOpenDragGesture,
-            endDrawerEnableOpenDragGesture:
-                drawer.endDrawerEnableOpenDragGesture,
+            onDrawerChanged: drawerConf.onDrawerChanged,
+            onEndDrawerChanged: drawerConf.onEndDrawerChanged,
+            drawerDragStartBehavior: drawerConf.drawerDragStartBehavior,
+            drawerScrimColor: drawerConf.drawerScrimColor,
+            drawerEdgeDragWidth: drawerConf.drawerEdgeDragWidth,
+            drawerEnableOpenDragGesture: (useDrawer && drawer != null) &&
+                drawerConf.drawerEnableOpenDragGesture,
+            endDrawerEnableOpenDragGesture: (useDrawer && endDrawer != null) &&
+                drawerConf.endDrawerEnableOpenDragGesture,
             floatingActionButton: conf.floatingActionButton,
             floatingActionButtonLocation: conf.floatingActionButtonLocation,
             floatingActionButtonAnimator: conf.floatingActionButtonAnimator,
@@ -198,8 +201,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
               useDrawer: useDrawer,
               appBar: userDefinedAppBar,
             ),
-            drawer: _configDrawer(drawer),
-            endDrawer: _configDrawer(drawer, isEndDrawer: true),
+            drawer: drawer,
+            endDrawer: endDrawer,
             body: Builder(
               builder: (final BuildContext context) {
                 final Widget child = AdaptiveLayout(
@@ -213,8 +216,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                   ),
                   bottomNavigation: BottomNavigation.maybeEnable(
                     context: context,
-                    drawerBreakpoint: drawer.breakpoint,
-                    useDrawer: drawer.useDrawer,
+                    drawerBreakpoint: drawerConf.breakpoint,
+                    useDrawer: drawerConf.useDrawer,
                     small: conf.breakpointConfig.small,
                     destinations: conf.navigationRailConfig.destinations,
                     selectedIndex: index,
