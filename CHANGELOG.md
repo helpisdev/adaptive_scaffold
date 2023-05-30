@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.4+4`](#adaptive_scaffold---v0444)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.4+4`
+
+ - **FIX**(drawer): Disable drawer drag gesture if drawer is disabled. ([b6929f12](https://github.com/helpisdev/adaptive_scaffold.git/commit/b6929f123e1982e7f34020d3b9ef40ddf8d20409))
+
+## 0.4.4+4
+
+ - **FIX**(drawer): Disable drawer drag gesture if drawer is disabled. ([b6929f12](https://github.com/helpisdev/adaptive_scaffold.git/commit/b6929f123e1982e7f34020d3b9ef40ddf8d20409))
+
+
+## 2023-05-30
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.4+3`](#adaptive_scaffold---v0443)
 
 ---
