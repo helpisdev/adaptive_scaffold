@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.4+3`](#adaptive_scaffold---v0443)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.4+3`
+
+ - **FIX**(gtk): Remove gtk stub and move it to gtk package since there are more members to proxy. ([ce49a1ce](https://github.com/helpisdev/adaptive_scaffold.git/commit/ce49a1ce1c01429f9d63e38f8efec8aab3be5ab5))
+
+## 0.4.4+3
+
+ - **FIX**(gtk): Remove gtk stub and move it to gtk package since there are more members to proxy. ([ce49a1ce](https://github.com/helpisdev/adaptive_scaffold.git/commit/ce49a1ce1c01429f9d63e38f8efec8aab3be5ab5))
+
+
+## 2023-05-30
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.4+2`](#adaptive_scaffold---v0442)
 
 ---
