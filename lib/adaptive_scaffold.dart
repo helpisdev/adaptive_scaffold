@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 export 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
+export 'package:gtk_window/gtk_window.dart';
 
 export 'src/adaptive_layout/adaptive_layout.dart';
 export 'src/adaptive_layout/slot_layout.dart';
@@ -11,4 +12,3 @@ export 'src/adaptive_scaffold/scaffold_config.dart';
 export 'src/appbar.dart';
 export 'src/bottom_bar.dart';
 export 'src/breakpoints/breakpoint.dart';
-export 'src/gtk/non_web.dart' if (dart.library.html) 'src/gtk/web.dart';

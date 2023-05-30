@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gtk_window/gtk_window.dart';
 
 import 'breakpoints/breakpoint.dart';
-import 'gtk/non_web.dart' if (dart.library.html) 'gtk/web.dart';
 
 const double kLargeAppBarHeight = 72;
 const double kSmallAppBarHeight = 56;
