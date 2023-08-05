@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-08-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`adaptive_scaffold` - `v0.4.5`](#adaptive_scaffold---v045)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.5`
+
+ - **REFACTOR**(api): Seperate Material and GTK app bars apis with specific options for each. ([25ccf54f](https://github.com/helpisdev/adaptive_scaffold.git/commit/25ccf54f484801a24d356d965533f06aa49e477f))
+ - **FEAT**(scaffold): Add on will pop action for material app bar. ([99432c49](https://github.com/helpisdev/adaptive_scaffold.git/commit/99432c4956a23780e55b04354985693d17e0c5d4))
+
+## 0.4.5
+
+ - **REFACTOR**(api): Seperate Material and GTK app bars apis with specific options for each. ([25ccf54f](https://github.com/helpisdev/adaptive_scaffold.git/commit/25ccf54f484801a24d356d965533f06aa49e477f))
+ - **FEAT**(scaffold): Add on will pop action for material app bar. ([99432c49](https://github.com/helpisdev/adaptive_scaffold.git/commit/99432c4956a23780e55b04354985693d17e0c5d4))
+
+
 ## 2023-05-30
 
 ### Changes
