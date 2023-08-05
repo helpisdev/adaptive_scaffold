@@ -6,7 +6,8 @@ import 'dart:math';
 
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Stack;
+import 'package:stack/stack.dart';
 import 'package:utilities/utilities.dart';
 
 import '../adaptive_layout/adaptive_layout.dart';
@@ -92,7 +93,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   late AdaptiveScaffoldConfig conf = widget.config;
   late int? index = widget.config.navigationRailConfig.selectedIndex;
   Key? _scrollbarKey;
-  int? _prevIndex;
+  final Stack<int> _prevIndexes = Stack();
 
   static const BreakpointGenerator mobile = BreakpointGenerator.generate(
     type: DeviceType.mobile,
@@ -118,8 +119,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   }) {
     setState(
       () {
-        _prevIndex = this.index;
         this.index = index;
+        _prevIndexes.push(index);
       },
     );
     conf.navigationRailConfig.onDestinationSelected?.call(
@@ -211,20 +212,18 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
               builder: (final BuildContext context) {
                 final Widget child = WillPopScope(
                   onWillPop: () async {
-                    bool pop() {
-                      final int i = _prevIndex ??
-                          widget.config.navigationRailConfig.selectedIndex ??
-                          0;
-                      changeIndex(i, context);
-                      return true;
+                    if (_prevIndexes.isEmpty) {
+                      return false;
                     }
-
                     final bool canPop = Navigator.of(context).canPop();
                     final bool r =
                         await userDefinedAppBar?.onWillPop?.call() ?? true;
 
                     if (canPop && r) {
-                      return pop();
+                      setState(() {
+                        index = _prevIndexes.pop();
+                      });
+                      return true;
                     }
                     return false;
                   },

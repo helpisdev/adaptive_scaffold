@@ -20,6 +20,7 @@ dependencies:
     git:
       url: https://github.com/helpisdev/gtk_window.git
       ref: main
+  stack: ^0.2.1
   utilities:
     git:
       url: https://github.com/helpisdev/utilities.git
