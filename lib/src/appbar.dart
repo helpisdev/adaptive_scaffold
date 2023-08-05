@@ -48,7 +48,8 @@ mixin AdaptiveAppBar {
             : <Widget>[if (leading != null) leading],
         trailing: gtkSpecificOptions.trailing,
         automaticallyImplyLeading: automaticallyImplyLeading,
-        onWillPop: onWillPop,
+        // Handle route pop in library
+        // onWillPop: onWillPop,
         onBackButtonPressed: gtkSpecificOptions.onBackButtonPressed,
         onDrawerButtonPressed: gtkSpecificOptions.onDrawerButtonPressed,
         onWindowResize: gtkSpecificOptions.onWindowResize,

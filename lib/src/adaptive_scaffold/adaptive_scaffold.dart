@@ -92,6 +92,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   late AdaptiveScaffoldConfig conf = widget.config;
   late int? index = widget.config.navigationRailConfig.selectedIndex;
   Key? _scrollbarKey;
+  int? _prevIndex;
 
   static const BreakpointGenerator mobile = BreakpointGenerator.generate(
     type: DeviceType.mobile,
@@ -116,7 +117,10 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     required final BuildContext context,
   }) {
     setState(
-      () => this.index = index,
+      () {
+        _prevIndex = this.index;
+        this.index = index;
+      },
     );
     conf.navigationRailConfig.onDestinationSelected?.call(
       index,
@@ -168,7 +172,6 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
         (drawerConf.useDrawer || drawerConf.useEndDrawer);
     final Widget? drawer = _configDrawer(drawerConf);
     final Widget? endDrawer = _configDrawer(drawerConf, isEndDrawer: true);
-    Future<bool> allowPop() async => true;
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.ltr,
@@ -176,9 +179,23 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
           width: context.width,
           height: context.height,
           child: WillPopScope(
-            onWillPop: userDefinedAppBar is AdaptiveMaterialAppBar
-                ? userDefinedAppBar.onWillPop ?? allowPop
-                : allowPop,
+            onWillPop: () async {
+              bool pop() {
+                final int i = _prevIndex ??
+                    widget.config.navigationRailConfig.selectedIndex ??
+                    0;
+                changeIndex(i, context);
+                return true;
+              }
+
+              final bool canPop = Navigator.of(context).canPop();
+              final bool r = await userDefinedAppBar?.onWillPop?.call() ?? true;
+
+              if (canPop && r) {
+                return pop();
+              }
+              return false;
+            },
             child: Scaffold(
               onDrawerChanged: drawerConf.onDrawerChanged,
               onEndDrawerChanged: drawerConf.onEndDrawerChanged,
