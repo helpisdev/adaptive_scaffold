@@ -15,6 +15,35 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.7`](#adaptive_scaffold---v047)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.7`
+
+ - **FIX**(onWillPop): Fix previous index impl by registering pages on a stack. ([ad74f265](https://github.com/helpisdev/adaptive_scaffold.git/commit/ad74f26560ff906b0d9bb66cbf857f67df3a4503))
+ - **FIX**(onWillPop): Transfer WillPopScope lower down the tree hierarchy to access a valid BuildContext with a Scaffold ancestor. ([4c965a90](https://github.com/helpisdev/adaptive_scaffold.git/commit/4c965a90772e10bd3b8641c36a4322a3c1f3cdf1))
+ - **FEAT**(onWillPop): Pass previous index in onWillPop. ([b756a6aa](https://github.com/helpisdev/adaptive_scaffold.git/commit/b756a6aa82ea4a10c6945f20be834c2063207883))
+
+## 0.4.7
+
+ - **FIX**(onWillPop): Fix previous index impl by registering pages on a stack. ([ad74f265](https://github.com/helpisdev/adaptive_scaffold.git/commit/ad74f26560ff906b0d9bb66cbf857f67df3a4503))
+ - **FIX**(onWillPop): Transfer WillPopScope lower down the tree hierarchy to access a valid BuildContext with a Scaffold ancestor. ([4c965a90](https://github.com/helpisdev/adaptive_scaffold.git/commit/4c965a90772e10bd3b8641c36a4322a3c1f3cdf1))
+ - **FEAT**(onWillPop): Pass previous index in onWillPop. ([b756a6aa](https://github.com/helpisdev/adaptive_scaffold.git/commit/b756a6aa82ea4a10c6945f20be834c2063207883))
+
+
+## 2023-08-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.6`](#adaptive_scaffold---v046)
 
 ---
