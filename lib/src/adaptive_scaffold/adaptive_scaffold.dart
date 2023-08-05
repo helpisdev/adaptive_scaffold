@@ -135,6 +135,26 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
       ..closeEndDrawer();
   }
 
+  Future<bool> Function() pop({
+    required final BuildContext context,
+    final AdaptiveAppBar? appbar,
+  }) =>
+      () async {
+        if (_prevIndexes.isEmpty) {
+          return false;
+        }
+        final bool canPop = Navigator.of(context).canPop();
+        final int top = _prevIndexes.top();
+
+        final bool r = await appbar?.onWillPopCb?.call(top) ?? true;
+
+        if (canPop && r) {
+          setState(() => index = _prevIndexes.pop());
+          return true;
+        }
+        return false;
+      };
+
   @override
   void initState() {
     super.initState();
@@ -213,23 +233,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
             body: Builder(
               builder: (final BuildContext context) {
                 final Widget child = WillPopScope(
-                  onWillPop: () async {
-                    if (_prevIndexes.isEmpty) {
-                      return false;
-                    }
-                    final bool canPop = Navigator.of(context).canPop();
-                    final bool r = await userDefinedAppBar?.onWillPopCb
-                            ?.call(_prevIndexes.top()) ??
-                        true;
-
-                    if (canPop && r) {
-                      setState(() {
-                        index = _prevIndexes.pop();
-                      });
-                      return true;
-                    }
-                    return false;
-                  },
+                  onWillPop: pop(appbar: userDefinedAppBar, context: context),
                   child: AdaptiveLayout(
                     bodyOrientation: conf.bodyConfig.orientation,
                     bodyRatio: conf.bodyConfig.ratio,
