@@ -93,7 +93,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   late AdaptiveScaffoldConfig conf = widget.config;
   late int? index = widget.config.navigationRailConfig.selectedIndex;
   Key? _scrollbarKey;
-  final Stack<int> _prevIndexes = Stack();
+  final Stack<int> _prevIndexes = Stack<int>();
 
   static const BreakpointGenerator mobile = BreakpointGenerator.generate(
     type: DeviceType.mobile,
