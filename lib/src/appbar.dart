@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gtk_window/gtk_window.dart';
+import 'package:gtk_window/gtk_window.dart' hide OnWillPop;
 
 import 'breakpoints/breakpoint.dart';
+
+typedef OnWillPop = Future<bool> Function([int? index]);
 
 const double kLargeAppBarHeight = 72;
 const double kSmallAppBarHeight = 56;
@@ -14,7 +16,7 @@ mixin AdaptiveAppBar {
   abstract final bool automaticallyImplyLeading;
   abstract final dynamic customLeading;
   abstract final Key? key;
-  abstract final OnWillPop? onWillPop;
+  abstract final OnWillPop? onWillPopCb;
   abstract final Breakpoint appBarBreakpoint;
   abstract final PreferredSizeWidget? bottom;
   abstract final GTKAppBarSpecificOptions gtkSpecificOptions;
@@ -48,8 +50,7 @@ mixin AdaptiveAppBar {
             : <Widget>[if (leading != null) leading],
         trailing: gtkSpecificOptions.trailing,
         automaticallyImplyLeading: automaticallyImplyLeading,
-        // Handle route pop in library
-        // onWillPop: onWillPop,
+        onWillPopCb: onWillPop,
         onBackButtonPressed: gtkSpecificOptions.onBackButtonPressed,
         onDrawerButtonPressed: gtkSpecificOptions.onDrawerButtonPressed,
         onWindowResize: gtkSpecificOptions.onWindowResize,
@@ -107,7 +108,7 @@ mixin AdaptiveAppBar {
       forceMaterialTransparency:
           materialSpecificOptions.forceMaterialTransparency,
       appBarBreakpoint: appBarBreakpoint,
-      onWillPop: onWillPop,
+      onWillPopCb: onWillPop,
     );
   }
 
@@ -129,7 +130,7 @@ mixin AdaptiveAppBar {
       automaticallyImplyLeading: appBar?.automaticallyImplyLeading ?? true,
       leading: appBar?.customLeading,
       key: appBar?.key,
-      onWillPop: appBar?.onWillPop,
+      onWillPop: appBar?.onWillPopCb,
       bottom: appBar?.bottom,
       gtkSpecificOptions:
           appBar?.gtkSpecificOptions ?? const GTKAppBarSpecificOptions(),
@@ -144,6 +145,7 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
     final bool automaticallyImplyLeading = true,
     final Widget? title,
     this.appBarBreakpoint = AdaptiveAppBar.desktop,
+    this.onWillPopCb,
     super.onBackButtonPressed,
     super.onDrawerButtonPressed,
     super.onWindowResize,
@@ -161,7 +163,6 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
     super.showMinimizeButton,
     super.showCloseButton,
     super.showWindowControlsButtons,
-    super.onWillPop,
     super.drawerButtonStyle,
     super.key,
   }) : super(autoImplyLeading: automaticallyImplyLeading, middle: title);
@@ -203,12 +204,18 @@ class AdaptiveGTKAppBar extends GTKHeaderBar with AdaptiveAppBar {
 
   @override
   Widget? get title => super.middle;
+
+  @override
+  final OnWillPop? onWillPopCb;
+
+  @override
+  Future<bool> Function()? get onWillPop => onWillPopCb;
 }
 
 class AdaptiveMaterialAppBar extends AppBar with AdaptiveAppBar {
   AdaptiveMaterialAppBar({
     this.appBarBreakpoint = AdaptiveAppBar.desktop,
-    this.onWillPop,
+    this.onWillPopCb,
     super.leading,
     super.automaticallyImplyLeading,
     super.title,
@@ -242,7 +249,7 @@ class AdaptiveMaterialAppBar extends AppBar with AdaptiveAppBar {
   }) : super();
 
   @override
-  final OnWillPop? onWillPop;
+  final OnWillPop? onWillPopCb;
 
   @override
   final Breakpoint appBarBreakpoint;

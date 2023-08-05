@@ -216,8 +216,9 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                       return false;
                     }
                     final bool canPop = Navigator.of(context).canPop();
-                    final bool r =
-                        await userDefinedAppBar?.onWillPop?.call() ?? true;
+                    final bool r = await userDefinedAppBar?.onWillPopCb
+                            ?.call(_prevIndexes.top()) ??
+                        true;
 
                     if (canPop && r) {
                       setState(() {
