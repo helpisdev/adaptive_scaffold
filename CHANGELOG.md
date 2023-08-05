@@ -15,6 +15,35 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.7+1`](#adaptive_scaffold---v0471)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.7+1`
+
+ - **REFACTOR**(scaffold): Extract onWillPop to seperate method. ([d85ae350](https://github.com/helpisdev/adaptive_scaffold.git/commit/d85ae3501b380d14f0f38e7b4d44e858169b689f))
+ - **REFACTOR**(scaffold): Add missing type annotation to index stack. ([b6fe755c](https://github.com/helpisdev/adaptive_scaffold.git/commit/b6fe755c1c3b5de1bdd59b7e64b3ed45687e0f8b))
+ - **FIX**(onWillPop): Add the previous index to the stack, not the current. ([895c3be1](https://github.com/helpisdev/adaptive_scaffold.git/commit/895c3be13dca1729042f39b2d76391301072d67a))
+
+## 0.4.7+1
+
+ - **REFACTOR**(scaffold): Extract onWillPop to seperate method. ([d85ae350](https://github.com/helpisdev/adaptive_scaffold.git/commit/d85ae3501b380d14f0f38e7b4d44e858169b689f))
+ - **REFACTOR**(scaffold): Add missing type annotation to index stack. ([b6fe755c](https://github.com/helpisdev/adaptive_scaffold.git/commit/b6fe755c1c3b5de1bdd59b7e64b3ed45687e0f8b))
+ - **FIX**(onWillPop): Add the previous index to the stack, not the current. ([895c3be1](https://github.com/helpisdev/adaptive_scaffold.git/commit/895c3be13dca1729042f39b2d76391301072d67a))
+
+
+## 2023-08-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.7`](#adaptive_scaffold---v047)
 
 ---
