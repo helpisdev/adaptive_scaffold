@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.6`](#adaptive_scaffold---v046)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.6`
+
+ - **FEAT**(onWillPop): Make sure onWillPop is called to change the navigation rail index. ([66f9e754](https://github.com/helpisdev/adaptive_scaffold.git/commit/66f9e754995a80c3b25c703d3b2d30eb56eaaabb))
+
+## 0.4.6
+
+ - **FEAT**(onWillPop): Make sure onWillPop is called to change the navigation rail index. ([66f9e754](https://github.com/helpisdev/adaptive_scaffold.git/commit/66f9e754995a80c3b25c703d3b2d30eb56eaaabb))
+
+
+## 2023-08-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.5`](#adaptive_scaffold---v045)
 
 ---
