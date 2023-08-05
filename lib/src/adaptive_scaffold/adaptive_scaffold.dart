@@ -119,8 +119,10 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   }) {
     setState(
       () {
+        if (this.index != null) {
+          _prevIndexes.push(this.index!);
+        }
         this.index = index;
-        _prevIndexes.push(index);
       },
     );
     conf.navigationRailConfig.onDestinationSelected?.call(
