@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-08-06
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`adaptive_scaffold` - `v0.4.8`](#adaptive_scaffold---v048)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.8`
+
+ - **FIX**(onWillPop): Transfer WillPopScope lower down the tree hierarchy to access a valid BuildContext with a Scaffold ancestor. ([099258a4](https://github.com/helpisdev/adaptive_scaffold.git/commit/099258a405ed600a599a9beeae016bae9a0da3c3))
+ - **FEAT**(onWillPop): Make sure onWillPop is called to change the navigation rail index.". ([f0934246](https://github.com/helpisdev/adaptive_scaffold.git/commit/f0934246428e320ea7324061458ad1ef33ed0dce))
+
+## 0.4.8
+
+ - **FIX**(onWillPop): Transfer WillPopScope lower down the tree hierarchy to access a valid BuildContext with a Scaffold ancestor. ([099258a4](https://github.com/helpisdev/adaptive_scaffold.git/commit/099258a405ed600a599a9beeae016bae9a0da3c3))
+ - **FEAT**(onWillPop): Make sure onWillPop is called to change the navigation rail index.". ([f0934246](https://github.com/helpisdev/adaptive_scaffold.git/commit/f0934246428e320ea7324061458ad1ef33ed0dce))
+
+
 ## 2023-08-05
 
 ### Changes
