@@ -6,8 +6,7 @@ import 'dart:math';
 
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' hide Stack;
-import 'package:stack/stack.dart';
+import 'package:flutter/material.dart';
 import 'package:utilities/utilities.dart';
 
 import '../adaptive_layout/adaptive_layout.dart';
@@ -93,7 +92,6 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
   late AdaptiveScaffoldConfig conf = widget.config;
   late int? index = widget.config.navigationRailConfig.selectedIndex;
   Key? _scrollbarKey;
-  final Stack<int> _prevIndexes = Stack<int>();
 
   static const BreakpointGenerator mobile = BreakpointGenerator.generate(
     type: DeviceType.mobile,
@@ -118,12 +116,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
     required final BuildContext context,
   }) {
     setState(
-      () {
-        if (this.index != null) {
-          _prevIndexes.push(this.index!);
-        }
-        this.index = index;
-      },
+      () => this.index = index,
     );
     conf.navigationRailConfig.onDestinationSelected?.call(
       index,
@@ -134,26 +127,6 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
       ..closeDrawer()
       ..closeEndDrawer();
   }
-
-  Future<bool> Function() pop({
-    required final BuildContext context,
-    final AdaptiveAppBar? appbar,
-  }) =>
-      () async {
-        if (_prevIndexes.isEmpty) {
-          return false;
-        }
-        final bool canPop = Navigator.of(context).canPop();
-        final int top = _prevIndexes.top();
-
-        final bool r = await appbar?.onWillPopCb?.call(top) ?? true;
-
-        if (canPop && r) {
-          setState(() => index = _prevIndexes.pop());
-          return true;
-        }
-        return false;
-      };
 
   @override
   void initState() {
@@ -195,46 +168,50 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
         (drawerConf.useDrawer || drawerConf.useEndDrawer);
     final Widget? drawer = _configDrawer(drawerConf);
     final Widget? endDrawer = _configDrawer(drawerConf, isEndDrawer: true);
+    Future<bool> allowPop() async => true;
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: SizedBox(
           width: context.width,
           height: context.height,
-          child: Scaffold(
-            onDrawerChanged: drawerConf.onDrawerChanged,
-            onEndDrawerChanged: drawerConf.onEndDrawerChanged,
-            drawerDragStartBehavior: drawerConf.drawerDragStartBehavior,
-            drawerScrimColor: drawerConf.drawerScrimColor,
-            drawerEdgeDragWidth: drawerConf.drawerEdgeDragWidth,
-            drawerEnableOpenDragGesture: (useDrawer && drawer != null) &&
-                drawerConf.drawerEnableOpenDragGesture,
-            endDrawerEnableOpenDragGesture: (useDrawer && endDrawer != null) &&
-                drawerConf.endDrawerEnableOpenDragGesture,
-            floatingActionButton: conf.floatingActionButton,
-            floatingActionButtonLocation: conf.floatingActionButtonLocation,
-            floatingActionButtonAnimator: conf.floatingActionButtonAnimator,
-            persistentFooterButtons: conf.persistentFooterButtons,
-            persistentFooterAlignment: conf.persistentFooterAlignment,
-            bottomSheet: conf.bottomSheet,
-            backgroundColor: conf.backgroundColor,
-            resizeToAvoidBottomInset: conf.resizeToAvoidBottomInset,
-            primary: conf.primary,
-            extendBody: conf.extendBody,
-            extendBodyBehindAppBar: conf.extendBodyBehindAppBar,
-            restorationId: conf.restorationId,
-            appBar: AdaptiveAppBar.generateFrom(
-              context: context,
-              useDrawer: useDrawer,
-              appBar: userDefinedAppBar,
-            ),
-            drawer: drawer,
-            endDrawer: endDrawer,
-            body: Builder(
-              builder: (final BuildContext context) {
-                final Widget child = WillPopScope(
-                  onWillPop: pop(appbar: userDefinedAppBar, context: context),
-                  child: AdaptiveLayout(
+          child: WillPopScope(
+            onWillPop: userDefinedAppBar is AdaptiveMaterialAppBar
+                ? userDefinedAppBar.onWillPop ?? allowPop
+                : allowPop,
+            child: Scaffold(
+              onDrawerChanged: drawerConf.onDrawerChanged,
+              onEndDrawerChanged: drawerConf.onEndDrawerChanged,
+              drawerDragStartBehavior: drawerConf.drawerDragStartBehavior,
+              drawerScrimColor: drawerConf.drawerScrimColor,
+              drawerEdgeDragWidth: drawerConf.drawerEdgeDragWidth,
+              drawerEnableOpenDragGesture: (useDrawer && drawer != null) &&
+                  drawerConf.drawerEnableOpenDragGesture,
+              endDrawerEnableOpenDragGesture:
+                  (useDrawer && endDrawer != null) &&
+                      drawerConf.endDrawerEnableOpenDragGesture,
+              floatingActionButton: conf.floatingActionButton,
+              floatingActionButtonLocation: conf.floatingActionButtonLocation,
+              floatingActionButtonAnimator: conf.floatingActionButtonAnimator,
+              persistentFooterButtons: conf.persistentFooterButtons,
+              persistentFooterAlignment: conf.persistentFooterAlignment,
+              bottomSheet: conf.bottomSheet,
+              backgroundColor: conf.backgroundColor,
+              resizeToAvoidBottomInset: conf.resizeToAvoidBottomInset,
+              primary: conf.primary,
+              extendBody: conf.extendBody,
+              extendBodyBehindAppBar: conf.extendBodyBehindAppBar,
+              restorationId: conf.restorationId,
+              appBar: AdaptiveAppBar.generateFrom(
+                context: context,
+                useDrawer: useDrawer,
+                appBar: userDefinedAppBar,
+              ),
+              drawer: drawer,
+              endDrawer: endDrawer,
+              body: Builder(
+                builder: (final BuildContext context) {
+                  final Widget child = AdaptiveLayout(
                     bodyOrientation: conf.bodyConfig.orientation,
                     bodyRatio: conf.bodyConfig.ratio,
                     useInternalAnimations: conf.useInternalAnimations,
@@ -263,53 +240,55 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                       config: conf.bodyConfig,
                       breakpoints: conf.breakpointConfig,
                     ),
-                  ),
-                );
-
-                if (useDrawer && !mobile.isActive(context)) {
-                  final AdaptiveScrollbarConfig scrollbar =
-                      conf.scrollbarConfig;
-                  final ScrollController controller =
-                      scrollbar.controller ?? ScrollController();
-                  final double desktopEnd = PredefinedBreakpoint.small.end!;
-                  double minimumScrollbarWidth = breakpoint.end ?? desktopEnd;
-                  if (minimumScrollbarWidth == double.infinity) {
-                    minimumScrollbarWidth = max(context.width, desktopEnd);
-                  }
-                  return AdaptiveScrollbar(
-                    key: _scrollbarKey,
-                    position: ScrollbarPosition.bottom,
-                    controller: controller,
-                    width: scrollbar.width,
-                    sliderHeight: scrollbar.sliderHeight,
-                    sliderChild: scrollbar.sliderChild,
-                    sliderDefaultColor: scrollbar.sliderDefaultColor,
-                    sliderActiveColor: scrollbar.sliderActiveColor,
-                    underColor: scrollbar.underColor,
-                    underSpacing: scrollbar.underSpacing,
-                    sliderSpacing: scrollbar.sliderSpacing,
-                    scrollToClickDelta: scrollbar.scrollToClickDelta,
-                    scrollToClickFirstDelay: scrollbar.scrollToClickFirstDelay,
-                    scrollToClickOtherDelay: scrollbar.scrollToClickOtherDelay,
-                    underDecoration: scrollbar.underDecoration,
-                    sliderDecoration: scrollbar.sliderDecoration,
-                    sliderActiveDecoration: scrollbar.sliderActiveDecoration,
-                    child: SingleChildScrollView(
-                      controller: controller,
-                      scrollDirection: Axis.horizontal,
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minWidth: minimumScrollbarWidth,
-                          maxWidth: minimumScrollbarWidth,
-                          maxHeight: context.height,
-                        ),
-                        child: child,
-                      ),
-                    ),
                   );
-                }
-                return child;
-              },
+
+                  if (useDrawer && !mobile.isActive(context)) {
+                    final AdaptiveScrollbarConfig scrollbar =
+                        conf.scrollbarConfig;
+                    final ScrollController controller =
+                        scrollbar.controller ?? ScrollController();
+                    final double desktopEnd = PredefinedBreakpoint.small.end!;
+                    double minimumScrollbarWidth = breakpoint.end ?? desktopEnd;
+                    if (minimumScrollbarWidth == double.infinity) {
+                      minimumScrollbarWidth = max(context.width, desktopEnd);
+                    }
+                    return AdaptiveScrollbar(
+                      key: _scrollbarKey,
+                      position: ScrollbarPosition.bottom,
+                      controller: controller,
+                      width: scrollbar.width,
+                      sliderHeight: scrollbar.sliderHeight,
+                      sliderChild: scrollbar.sliderChild,
+                      sliderDefaultColor: scrollbar.sliderDefaultColor,
+                      sliderActiveColor: scrollbar.sliderActiveColor,
+                      underColor: scrollbar.underColor,
+                      underSpacing: scrollbar.underSpacing,
+                      sliderSpacing: scrollbar.sliderSpacing,
+                      scrollToClickDelta: scrollbar.scrollToClickDelta,
+                      scrollToClickFirstDelay:
+                          scrollbar.scrollToClickFirstDelay,
+                      scrollToClickOtherDelay:
+                          scrollbar.scrollToClickOtherDelay,
+                      underDecoration: scrollbar.underDecoration,
+                      sliderDecoration: scrollbar.sliderDecoration,
+                      sliderActiveDecoration: scrollbar.sliderActiveDecoration,
+                      child: SingleChildScrollView(
+                        controller: controller,
+                        scrollDirection: Axis.horizontal,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minWidth: minimumScrollbarWidth,
+                            maxWidth: minimumScrollbarWidth,
+                            maxHeight: context.height,
+                          ),
+                          child: child,
+                        ),
+                      ),
+                    );
+                  }
+                  return child;
+                },
+              ),
             ),
           ),
         ),
