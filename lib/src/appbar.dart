@@ -1,8 +1,7 @@
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gtk_window/gtk_window.dart';
-
-import 'breakpoints/breakpoint.dart';
 
 const double kLargeAppBarHeight = 72;
 const double kSmallAppBarHeight = 56;

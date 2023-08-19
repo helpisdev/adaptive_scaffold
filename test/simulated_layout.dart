@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:adaptive_scaffold/adaptive_scaffold.dart';
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

@@ -1,9 +1,9 @@
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:utilities/utilities.dart';
 
 import '../adaptive_layout/slot_layout.dart';
-import '../breakpoints/breakpoint.dart';
 import 'animations.dart';
 import 'builders.dart';
 import 'scaffold_config.dart';

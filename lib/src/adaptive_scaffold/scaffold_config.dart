@@ -1,4 +1,5 @@
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:utilities/utils.dart';
 
 import '../appbar.dart';
 import '../bottom_bar.dart';
-import '../breakpoints/breakpoint.dart';
 import 'adaptive_scaffold.dart';
 
 /// Signature for a callback that reacts to an index change.

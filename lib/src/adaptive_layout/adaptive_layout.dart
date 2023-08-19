@@ -4,12 +4,12 @@
 
 import 'dart:ui';
 
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../adaptive_scaffold/adaptive_scaffold.dart';
 import '../adaptive_scaffold/builders.dart';
-import '../breakpoints/breakpoint.dart';
 import 'adaptive_layout_delegate.dart';
 import 'slot_layout.dart';
 

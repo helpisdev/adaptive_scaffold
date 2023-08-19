@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:utilities/utilities.dart';

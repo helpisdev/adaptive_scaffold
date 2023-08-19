@@ -5,6 +5,7 @@
 import 'dart:math';
 
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:utilities/utilities.dart';
@@ -12,7 +13,6 @@ import 'package:utilities/utilities.dart';
 import '../adaptive_layout/adaptive_layout.dart';
 import '../adaptive_layout/slot_layout.dart';
 import '../appbar.dart';
-import '../breakpoints/breakpoint.dart';
 import 'layout_slots.dart';
 import 'scaffold_config.dart';
 

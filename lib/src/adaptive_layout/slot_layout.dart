@@ -2,11 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../adaptive_scaffold/builders.dart';
-import '../breakpoints/breakpoint.dart';
 import 'adaptive_layout.dart';
 
 typedef SlotLayoutConfigRegistry = Map<Breakpoint, SlotLayoutConfig?>;

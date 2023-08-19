@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:adaptive_scaffold/src/breakpoints/breakpoint.dart';
+import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 
 const Breakpoint testBreakpoint0 = BreakpointGenerator.generate(
   begin: 0,
