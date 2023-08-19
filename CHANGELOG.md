@@ -15,6 +15,49 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.10`](#adaptive_scaffold---v0410)
+ - [`adaptive_scrollbar` - `v3.1.0`](#adaptive_scrollbar---v310)
+ - [`context_menu` - `v0.0.2+1`](#context_menu---v0021)
+ - [`gtk_window` - `v0.3.1+2`](#gtk_window---v0312)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `gtk_window` - `v0.3.1+2`
+
+---
+
+#### `adaptive_scaffold` - `v0.4.10`
+
+ - **FEAT**: Remove all git packages and add new packages as submodules + change copyWith impl. ([fde84e1b](https://github.com/helpisdev/adaptive_scaffold.git/commit/fde84e1b59fca0805ee2862f1febbf15deddc1b3))
+
+#### `adaptive_scrollbar` - `v3.1.0`
+
+ - **FIX**: Correct repository in pubspec.yaml. ([81715dfa](https://github.com/helpisdev/adaptive_scaffold.git/commit/81715dfa205655589cceefe1c17d1996c081b8cc))
+ - **FEAT**: Rework. ([55dafe05](https://github.com/helpisdev/adaptive_scaffold.git/commit/55dafe051cb21e241129005e262d9c4849f573dd))
+
+#### `context_menu` - `v0.0.2+1`
+
+ - **FIX**: Correct repository in pubspec.yaml. ([f801d208](https://github.com/helpisdev/adaptive_scaffold.git/commit/f801d208ccad5f2532ff1875169c611babed2c7a))
+
+## 0.4.10
+
+ - **FEAT**: Remove all git packages and add new packages as submodules + change copyWith impl. ([fde84e1b](https://github.com/helpisdev/adaptive_scaffold.git/commit/fde84e1b59fca0805ee2862f1febbf15deddc1b3))
+
+
+## 2023-08-19
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.9`](#adaptive_scaffold---v049)
 
 ---
