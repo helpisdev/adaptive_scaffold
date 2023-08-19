@@ -15,6 +15,31 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`adaptive_scaffold` - `v0.4.11`](#adaptive_scaffold---v0411)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.11`
+
+ - **FEAT**(routing): Move routing utilities from utilities package in here. ([5ddb3b42](https://github.com/helpisdev/adaptive_scaffold.git/commit/5ddb3b42598cdac7542a6d57df7f7da7b60f8817))
+
+## 0.4.11
+
+ - **FEAT**(routing): Move routing utilities from utilities package in here. ([5ddb3b42](https://github.com/helpisdev/adaptive_scaffold.git/commit/5ddb3b42598cdac7542a6d57df7f7da7b60f8817))
+
+
+## 2023-08-19
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`adaptive_scaffold` - `v0.4.10`](#adaptive_scaffold---v0410)
  - [`adaptive_scrollbar` - `v3.1.0`](#adaptive_scrollbar---v310)
  - [`context_menu` - `v0.0.2+1`](#context_menu---v0021)
