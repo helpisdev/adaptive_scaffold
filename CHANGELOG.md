@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-08-19
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`adaptive_scaffold` - `v0.4.9`](#adaptive_scaffold---v049)
+
+---
+
+#### `adaptive_scaffold` - `v0.4.9`
+
+ - **FEAT**: Move breakpoints to seperate package. ([f7a581dd](https://github.com/helpisdev/adaptive_scaffold.git/commit/f7a581ddd767593166da3b9e3343673257cb0798))
+
+## 0.4.9
+
+ - **FEAT**: Move breakpoints to seperate package. ([f7a581dd](https://github.com/helpisdev/adaptive_scaffold.git/commit/f7a581ddd767593166da3b9e3343673257cb0798))
+
+
 ## 2023-08-06
 
 ### Changes
