@@ -1,7 +1,7 @@
 import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:utilities/utilities.dart';
+import 'package:resizable_text/resizable_text.dart';
 
 import '../adaptive_layout/slot_layout.dart';
 import 'animations.dart';

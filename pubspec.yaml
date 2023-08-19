@@ -10,26 +10,21 @@ environment:
 
 dependencies:
   adaptive_scrollbar:
-    git:
-      url: https://github.com/helpisdev/adaptive-scrollbar.git
-      ref: main
+    path: packages/adaptive_scrollbar
+  breakpoints_utilities:
+    path: packages/gtk_window/packages/resizable_text/packages/breakpoints_utilities
   collection: ^1.17.1
+  copy_with_extension: ^5.0.4
   flutter:
     sdk: flutter
   gtk_window:
-    git:
-      url: https://github.com/helpisdev/gtk_window.git
-      ref: main
-  utilities:
-    git:
-      url: https://github.com/helpisdev/utilities.git
-      ref: main
-  breakpoints_utilities:
-    git:
-      url: https://github.com/helpisdev/breakpoints_utilities.git
-      ref: main
+    path: packages/gtk_window
+  resizable_text:
+    path: packages/gtk_window/packages/resizable_text
 
 dev_dependencies:
+  build_runner: ^2.4.6
+  copy_with_extension_gen: ^5.0.4
   flutter_test:
     sdk: flutter
   melos: ^3.1.0

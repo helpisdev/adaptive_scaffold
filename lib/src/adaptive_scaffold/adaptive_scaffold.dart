@@ -8,7 +8,6 @@ import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:utilities/utilities.dart';
 
 import '../adaptive_layout/adaptive_layout.dart';
 import '../adaptive_layout/slot_layout.dart';
@@ -173,8 +172,8 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: SizedBox(
-          width: context.width,
-          height: context.height,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Scaffold(
             onDrawerChanged: drawerConf.onDrawerChanged,
             onEndDrawerChanged: drawerConf.onEndDrawerChanged,
@@ -250,7 +249,10 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                   final double desktopEnd = PredefinedBreakpoint.small.end!;
                   double minimumScrollbarWidth = breakpoint.end ?? desktopEnd;
                   if (minimumScrollbarWidth == double.infinity) {
-                    minimumScrollbarWidth = max(context.width, desktopEnd);
+                    minimumScrollbarWidth = max(
+                      MediaQuery.of(context).size.width,
+                      desktopEnd,
+                    );
                   }
                   return AdaptiveScrollbar(
                     key: _scrollbarKey,
@@ -277,7 +279,7 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
                         constraints: BoxConstraints(
                           minWidth: minimumScrollbarWidth,
                           maxWidth: minimumScrollbarWidth,
-                          maxHeight: context.height,
+                          maxHeight: MediaQuery.of(context).size.height,
                         ),
                         child: child,
                       ),
@@ -303,11 +305,9 @@ class _AdaptiveScaffoldState extends State<AdaptiveScaffold> {
         final Widget? drawer = AdaptiveDrawer.maybeOf(
           context: context,
           config: adaptiveDrawer.copyWith(
-            updates: <String, dynamic>{
-              'selectedIndex': index,
-              'onDestinationSelected': (final int index) =>
-                  changeIndex(index, context),
-            },
+            selectedIndex: index,
+            onDestinationSelected: (final int index) =>
+                changeIndex(index, context),
           ),
           navRailConf: _getNavRailConf(context),
           endDrawer: isEndDrawer,

@@ -1,5 +1,17 @@
-# melos_managed_dependency_overrides: collection,handy_window,intl
+# melos_managed_dependency_overrides: collection,handy_window,intl,adaptive_scrollbar,breakpoints_utilities,context_menu,gtk_window,resizable_text,screen_size_provider
 dependency_overrides:
+  adaptive_scrollbar:
+    path: packages/adaptive_scrollbar
+  breakpoints_utilities:
+    path: packages/gtk_window/packages/resizable_text/packages/breakpoints_utilities
   collection: ^1.18.0
+  context_menu:
+    path: packages/gtk_window/packages/context_menu
+  gtk_window:
+    path: packages/gtk_window
   handy_window: ^0.3.1
   intl: ^0.18.1
+  resizable_text:
+    path: packages/gtk_window/packages/resizable_text
+  screen_size_provider:
+    path: packages/gtk_window/packages/resizable_text/packages/screen_size_provider

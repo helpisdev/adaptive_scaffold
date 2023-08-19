@@ -18,7 +18,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:utilities/typography.dart';
+import 'package:resizable_text/resizable_text.dart';
 
 import 'adaptive_scaffold/scaffold_config.dart';
 

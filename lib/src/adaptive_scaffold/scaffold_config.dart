@@ -1,16 +1,18 @@
 import 'package:adaptive_scrollbar/adaptive_scrollbar.dart';
 import 'package:breakpoints_utilities/breakpoints_utilities.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
-import 'package:utilities/typography.dart';
-import 'package:utilities/utils.dart';
+import 'package:resizable_text/resizable_text.dart';
 
 import '../appbar.dart';
 import '../bottom_bar.dart';
 import 'adaptive_scaffold.dart';
+
+part 'scaffold_config.g.dart';
 
 /// Signature for a callback that reacts to an index change.
 typedef OnIndexChangedCallback = void Function(int index);
@@ -22,8 +24,9 @@ typedef OnNavigationRailIndexChangedCallback = void Function(
   NavigationRailConfig config,
 );
 
+@CopyWith(copyWithNull: true)
 @immutable
-class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
+class AdaptiveScaffoldConfig {
   /// Returns a const [AdaptiveScaffoldConfig].
   const AdaptiveScaffoldConfig({
     required this.navigationRailConfig,
@@ -229,121 +232,6 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
   final AdaptiveAppBar? appBar;
 
   @override
-  AdaptiveScaffoldConfig copy() => AdaptiveScaffoldConfig(
-        navigationRailConfig: navigationRailConfig,
-        bodyConfig: bodyConfig,
-        breakpointConfig: breakpointConfig,
-        appBar: appBar,
-        useInternalAnimations: useInternalAnimations,
-        useSalomonBar: useSalomonBar,
-        scrollbarConfig: scrollbarConfig,
-        floatingActionButton: floatingActionButton,
-        floatingActionButtonLocation: floatingActionButtonLocation,
-        floatingActionButtonAnimator: floatingActionButtonAnimator,
-        persistentFooterButtons: persistentFooterButtons,
-        persistentFooterAlignment: persistentFooterAlignment,
-        bottomSheet: bottomSheet,
-        backgroundColor: backgroundColor,
-        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-        primary: primary,
-        extendBody: extendBody,
-        extendBodyBehindAppBar: extendBodyBehindAppBar,
-        restorationId: restorationId,
-        drawerConfig: drawerConfig,
-        iconSize: iconSize,
-      );
-
-  @override
-  AdaptiveScaffoldConfig copyWith({
-    final JSON updates = const <String, dynamic>{},
-    final AdaptiveScaffoldConfig? other,
-  }) =>
-      AdaptiveScaffoldConfig(
-        appBar: updates['appBar'] ??
-            updates['app_bar'] ??
-            updates['appbar'] ??
-            other?.appBar ??
-            appBar,
-        useInternalAnimations: updates['useInternalAnimations'] ??
-            updates['use_internal_animations'] ??
-            other?.useInternalAnimations ??
-            useInternalAnimations,
-        bodyConfig: updates['bodyConfig'] ??
-            updates['body_config'] ??
-            other?.bodyConfig ??
-            bodyConfig,
-        breakpointConfig: updates['breakpointConfig'] ??
-            updates['breakpoint_config'] ??
-            other?.breakpointConfig ??
-            breakpointConfig,
-        navigationRailConfig: updates['navigationRailConfig'] ??
-            updates['navigation_rail_config'] ??
-            other?.navigationRailConfig ??
-            navigationRailConfig,
-        useSalomonBar: updates['useSalomonBar'] ??
-            updates['use_salomon_bar'] ??
-            other?.useSalomonBar ??
-            useSalomonBar,
-        scrollbarConfig: updates['scrollbarConfig'] ??
-            updates['scrollbar_config'] ??
-            other?.scrollbarConfig ??
-            scrollbarConfig,
-        floatingActionButton: updates['floatingActionButton'] ??
-            updates['floating_action_button'] ??
-            other?.floatingActionButton ??
-            floatingActionButton,
-        floatingActionButtonLocation: updates['floatingActionButtonLocation'] ??
-            updates['floating_action_button_location'] ??
-            other?.floatingActionButtonLocation ??
-            floatingActionButtonLocation,
-        floatingActionButtonAnimator: updates['floatingActionButtonAnimator'] ??
-            updates['floating_action_button_animator'] ??
-            other?.floatingActionButtonAnimator ??
-            floatingActionButtonAnimator,
-        persistentFooterButtons: updates['persistentFooterButtons'] ??
-            updates['persistent_footer_buttons'] ??
-            other?.persistentFooterButtons ??
-            persistentFooterButtons,
-        persistentFooterAlignment: updates['persistentFooterAlignment'] ??
-            updates['persistent_footer_alignment'] ??
-            other?.persistentFooterAlignment ??
-            persistentFooterAlignment,
-        bottomSheet: updates['bottomSheet'] ??
-            updates['bottom_sheet'] ??
-            other?.bottomSheet ??
-            bottomSheet,
-        backgroundColor: updates['backgroundColor'] ??
-            updates['background_color'] ??
-            other?.backgroundColor ??
-            backgroundColor,
-        resizeToAvoidBottomInset: updates['resizeToAvoidBottomInset'] ??
-            updates['resize_to_avoid_bottom_inset'] ??
-            other?.resizeToAvoidBottomInset ??
-            resizeToAvoidBottomInset,
-        primary: updates['primary'] ?? other?.primary ?? primary,
-        extendBody: updates['extendBody'] ??
-            updates['extend_body'] ??
-            other?.extendBody ??
-            extendBody,
-        extendBodyBehindAppBar: updates['extendBodyBehindAppBar'] ??
-            updates['extend_body_behind_app_bar'] ??
-            other?.extendBodyBehindAppBar ??
-            extendBodyBehindAppBar,
-        restorationId: updates['restorationId'] ??
-            updates['restoration_id'] ??
-            other?.restorationId ??
-            restorationId,
-        drawerConfig: updates['drawerConfig'] ??
-            updates['drawer_config'] ??
-            other?.drawerConfig ??
-            drawerConfig,
-        iconSize: updates['iconSize'] ??
-            updates['icon_size'] ??
-            other?.iconSize ??
-            iconSize,
-      );
-
-  @override
   bool operator ==(final Object other) =>
       identical(this, other) ||
       other is AdaptiveScaffoldConfig &&
@@ -395,8 +283,9 @@ class AdaptiveScaffoldConfig implements Copyable<AdaptiveScaffoldConfig> {
       appBar.hashCode;
 }
 
+@CopyWith(copyWithNull: true)
 @immutable
-class NavigationRailConfig implements Copyable<NavigationRailConfig> {
+class NavigationRailConfig {
   const NavigationRailConfig({
     required this.destinations,
     this.selectedIndex = 0,
@@ -615,105 +504,6 @@ class NavigationRailConfig implements Copyable<NavigationRailConfig> {
   final ShapeBorder? indicatorShape;
 
   @override
-  NavigationRailConfig copy() => NavigationRailConfig(
-        destinations: destinations,
-        selectedIndex: selectedIndex,
-        width: width,
-        extendedWidth: extendedWidth,
-        leading: leading,
-        leadingExtended: leadingExtended,
-        trailing: trailing,
-        key: key,
-        backgroundColor: backgroundColor,
-        onDestinationSelected: onDestinationSelected,
-        elevation: elevation,
-        groupAlignment: groupAlignment,
-        labelType: labelType,
-        unselectedLabelTextStyle: unselectedLabelTextStyle,
-        selectedLabelTextStyle: selectedLabelTextStyle,
-        unselectedIconTheme: unselectedIconTheme,
-        selectedIconTheme: selectedIconTheme,
-        useIndicator: useIndicator,
-        indicatorColor: indicatorColor,
-        indicatorShape: indicatorShape,
-        padding: padding,
-      );
-
-  @override
-  NavigationRailConfig copyWith({
-    final JSON updates = const <String, dynamic>{},
-    final NavigationRailConfig? other,
-  }) =>
-      NavigationRailConfig(
-        destinations:
-            updates['destinations'] ?? other?.destinations ?? destinations,
-        selectedIndex: updates['selectedIndex'] ??
-            updates['selected_index'] ??
-            other?.selectedIndex ??
-            selectedIndex,
-        width: updates['width'] ?? other?.width ?? width,
-        extendedWidth: updates['extendedWidth'] ??
-            updates['extended_width'] ??
-            other?.extendedWidth ??
-            extendedWidth,
-        leading: updates['leading'] ?? other?.leading ?? leading,
-        leadingExtended: updates['leadingExtended'] ??
-            updates['leading_extended'] ??
-            other?.leadingExtended ??
-            leadingExtended,
-        trailing: updates['trailing'] ?? other?.trailing ?? trailing,
-        key: updates['key'] ?? other?.key ?? key,
-        backgroundColor: updates['backgroundColor'] ??
-            updates['background_color'] ??
-            other?.backgroundColor ??
-            backgroundColor,
-        onDestinationSelected: updates['onDestinationSelected'] ??
-            updates['on_destination_selected'] ??
-            updates['onSelectedIndexChanged'] ??
-            updates['on_selected_index_changed'] ??
-            other?.onDestinationSelected ??
-            onDestinationSelected,
-        elevation: updates['elevation'] ?? other?.elevation ?? elevation,
-        groupAlignment: updates['groupAlignment'] ??
-            updates['group_alignment'] ??
-            other?.groupAlignment ??
-            groupAlignment,
-        labelType: updates['labelType'] ??
-            updates['label_type'] ??
-            other?.labelType ??
-            labelType,
-        unselectedLabelTextStyle: updates['unselectedLabelTextStyle'] ??
-            updates['unselected_label_text_style'] ??
-            other?.unselectedLabelTextStyle ??
-            unselectedLabelTextStyle,
-        selectedLabelTextStyle: updates['selectedLabelTextStyle'] ??
-            updates['selected_label_text_style'] ??
-            other?.selectedLabelTextStyle ??
-            selectedLabelTextStyle,
-        unselectedIconTheme: updates['unselectedIconTheme'] ??
-            updates['unselected_icon_theme'] ??
-            other?.unselectedIconTheme ??
-            unselectedIconTheme,
-        selectedIconTheme: updates['selectedIconTheme'] ??
-            updates['selected_icon_theme'] ??
-            other?.selectedIconTheme ??
-            selectedIconTheme,
-        useIndicator: updates['useIndicator'] ??
-            updates['use_indicator'] ??
-            other?.useIndicator ??
-            useIndicator,
-        indicatorColor: updates['indicatorColor'] ??
-            updates['indicator_color'] ??
-            other?.indicatorColor ??
-            indicatorColor,
-        indicatorShape: updates['indicatorShape'] ??
-            updates['indicator_shape'] ??
-            other?.indicatorShape ??
-            indicatorShape,
-        padding: updates['padding'] ?? other?.padding ?? padding,
-      );
-
-  @override
   bool operator ==(final Object other) =>
       identical(this, other) ||
       other is NavigationRailConfig &&
@@ -765,8 +555,9 @@ class NavigationRailConfig implements Copyable<NavigationRailConfig> {
       indicatorShape.hashCode;
 }
 
+@CopyWith(copyWithNull: true)
 @immutable
-class BreakpointConfig implements Copyable<BreakpointConfig> {
+class BreakpointConfig {
   const BreakpointConfig({
     this.large = PredefinedBreakpoint.largeAndUp,
     this.medium = PredefinedBreakpoint.medium,
@@ -792,24 +583,6 @@ class BreakpointConfig implements Copyable<BreakpointConfig> {
   final Breakpoint large;
 
   @override
-  BreakpointConfig copy() => BreakpointConfig(
-        large: large,
-        medium: medium,
-        small: small,
-      );
-
-  @override
-  BreakpointConfig copyWith({
-    final JSON updates = const <String, dynamic>{},
-    final BreakpointConfig? other,
-  }) =>
-      BreakpointConfig(
-        large: updates['large'] ?? other?.large ?? large,
-        medium: updates['medium'] ?? other?.medium ?? medium,
-        small: updates['small'] ?? other?.small ?? small,
-      );
-
-  @override
   bool operator ==(final Object other) =>
       identical(this, other) ||
       other is BreakpointConfig &&
@@ -824,8 +597,9 @@ class BreakpointConfig implements Copyable<BreakpointConfig> {
 
 typedef WidgetBuilderWrapper = WidgetBuilder? Function(WidgetBuilder? body);
 
+@CopyWith(copyWithNull: true)
 @immutable
-class BodyConfig implements Copyable<BodyConfig> {
+class BodyConfig {
   const BodyConfig({
     this.body,
     this.large,
@@ -892,18 +666,6 @@ class BodyConfig implements Copyable<BodyConfig> {
   /// Defaults to Axis.horizontal.
   final Axis orientation;
 
-  @override
-  BodyConfig copy() => BodyConfig(
-        body: body,
-        large: large,
-        largeSecondary: largeSecondary,
-        orientation: orientation,
-        ratio: ratio,
-        secondary: secondary,
-        small: small,
-        smallSecondary: smallSecondary,
-      );
-
   BodyConfig wrap(final WidgetBuilderWrapper builder) => BodyConfig(
         body: builder(body),
         large: builder(large),
@@ -913,29 +675,6 @@ class BodyConfig implements Copyable<BodyConfig> {
         secondary: builder(secondary),
         small: builder(small),
         smallSecondary: builder(smallSecondary),
-      );
-
-  @override
-  BodyConfig copyWith({
-    final JSON updates = const <String, dynamic>{},
-    final BodyConfig? other,
-  }) =>
-      BodyConfig(
-        body: updates['body'] ?? other?.body ?? body,
-        large: updates['large'] ?? other?.large ?? large,
-        largeSecondary: updates['largeSecondary'] ??
-            updates['large_secondary'] ??
-            other?.largeSecondary ??
-            largeSecondary,
-        orientation:
-            updates['orientation'] ?? other?.orientation ?? orientation,
-        ratio: updates['ratio'] ?? other?.ratio ?? ratio,
-        secondary: updates['secondary'] ?? other?.secondary ?? secondary,
-        small: updates['small'] ?? other?.small ?? small,
-        smallSecondary: updates['smallSecondary'] ??
-            updates['small_secondary'] ??
-            other?.smallSecondary ??
-            smallSecondary,
       );
 
   @override
@@ -964,8 +703,9 @@ class BodyConfig implements Copyable<BodyConfig> {
       orientation.hashCode;
 }
 
+@CopyWith(copyWithNull: true)
 @immutable
-class AdaptiveDrawerConfig implements Copyable<AdaptiveDrawerConfig> {
+class AdaptiveDrawerConfig {
   const AdaptiveDrawerConfig({
     this.key,
     this.children,
@@ -1225,126 +965,6 @@ class AdaptiveDrawerConfig implements Copyable<AdaptiveDrawerConfig> {
   final bool useEndDrawer;
 
   @override
-  AdaptiveDrawerConfig copy() => AdaptiveDrawerConfig(
-        breakpoint: breakpoint,
-        key: key,
-        backgroundColor: backgroundColor,
-        elevation: elevation,
-        shadowColor: shadowColor,
-        surfaceTintColor: surfaceTintColor,
-        shape: shape,
-        width: width,
-        children: children,
-        indicatorColor: indicatorColor,
-        indicatorShape: indicatorShape,
-        onDestinationSelected: onDestinationSelected,
-        selectedIndex: selectedIndex,
-        semanticLabel: semanticLabel,
-        useDrawer: useDrawer,
-        useEndDrawer: useEndDrawer,
-        customDrawer: customDrawer,
-        onDrawerChanged: onDrawerChanged,
-        customEndDrawer: customEndDrawer,
-        onEndDrawerChanged: onEndDrawerChanged,
-        drawerScrimColor: drawerScrimColor,
-        drawerDragStartBehavior: drawerDragStartBehavior,
-        drawerEdgeDragWidth: drawerEdgeDragWidth,
-        drawerEnableOpenDragGesture: drawerEnableOpenDragGesture,
-        endDrawerEnableOpenDragGesture: endDrawerEnableOpenDragGesture,
-      );
-
-  @override
-  AdaptiveDrawerConfig copyWith({
-    final JSON updates = const <String, dynamic>{},
-    final AdaptiveDrawerConfig? other,
-  }) =>
-      AdaptiveDrawerConfig(
-        breakpoint: updates['breakpoint'] ?? other?.breakpoint ?? breakpoint,
-        key: updates['key'] ?? other?.key ?? key,
-        backgroundColor: updates['backgroundColor'] ??
-            updates['background_color'] ??
-            other?.backgroundColor ??
-            backgroundColor,
-        elevation: updates['elevation'] ?? other?.elevation ?? elevation,
-        shadowColor: updates['shadowColor'] ??
-            updates['shadow_color'] ??
-            other?.shadowColor ??
-            shadowColor,
-        surfaceTintColor: updates['surfaceTintColor'] ??
-            updates['surfaceTint_color'] ??
-            other?.surfaceTintColor ??
-            surfaceTintColor,
-        shape: updates['shape'] ?? other?.shape ?? shape,
-        width: updates['width'] ?? other?.width ?? width,
-        semanticLabel: updates['semanticLabel'] ??
-            updates['semantic_label'] ??
-            other?.semanticLabel ??
-            semanticLabel,
-        children: updates['children'] ?? other?.children ?? children,
-        indicatorColor: updates['indicatorColor'] ??
-            updates['indicator_color'] ??
-            other?.indicatorColor ??
-            indicatorColor,
-        indicatorShape: updates['indicatorShape'] ??
-            updates['indicator_shape'] ??
-            other?.indicatorShape ??
-            indicatorShape,
-        onDestinationSelected: updates['onDestinationSelected'] ??
-            updates['on_destination_selected'] ??
-            other?.onDestinationSelected ??
-            onDestinationSelected,
-        selectedIndex: updates['selectedIndex'] ??
-            updates['selected_index'] ??
-            other?.selectedIndex ??
-            selectedIndex,
-        useDrawer: updates['useDrawer'] ??
-            updates['use_drawer'] ??
-            other?.useDrawer ??
-            useDrawer,
-        useEndDrawer: updates['useEndDrawer'] ??
-            updates['use_end_drawer'] ??
-            other?.useEndDrawer ??
-            useEndDrawer,
-        customDrawer: updates['customDrawer'] ??
-            updates['custom_drawer'] ??
-            other?.customDrawer ??
-            customDrawer,
-        onDrawerChanged: updates['onDrawerChanged'] ??
-            updates['on_drawer_changed'] ??
-            other?.onDrawerChanged ??
-            onDrawerChanged,
-        customEndDrawer: updates['customEndDrawer'] ??
-            updates['custom_end_drawer'] ??
-            other?.customEndDrawer ??
-            customEndDrawer,
-        onEndDrawerChanged: updates['onEndDrawerChanged'] ??
-            updates['on_end_drawer_changed'] ??
-            other?.onEndDrawerChanged ??
-            onEndDrawerChanged,
-        drawerScrimColor: updates['drawerScrimColor'] ??
-            updates['drawer_scrim_color'] ??
-            other?.drawerScrimColor ??
-            drawerScrimColor,
-        drawerDragStartBehavior: updates['drawerDragStartBehavior'] ??
-            updates['drawer_drag_start_behavior'] ??
-            other?.drawerDragStartBehavior ??
-            drawerDragStartBehavior,
-        drawerEdgeDragWidth: updates['drawerEdgeDragWidth'] ??
-            updates['drawer_edge_drag_width'] ??
-            other?.drawerEdgeDragWidth ??
-            drawerEdgeDragWidth,
-        drawerEnableOpenDragGesture: updates['drawerEnableOpenDragGesture'] ??
-            updates['drawer_enable_open_drag_gesture'] ??
-            other?.drawerEnableOpenDragGesture ??
-            drawerEnableOpenDragGesture,
-        endDrawerEnableOpenDragGesture:
-            updates['endDrawerEnableOpenDragGesture'] ??
-                updates['end_drawer_enable_open_drag_gesture'] ??
-                other?.endDrawerEnableOpenDragGesture ??
-                endDrawerEnableOpenDragGesture,
-      );
-
-  @override
   bool operator ==(final Object other) =>
       identical(this, other) ||
       other is AdaptiveDrawerConfig &&
@@ -1405,8 +1025,9 @@ class AdaptiveDrawerConfig implements Copyable<AdaptiveDrawerConfig> {
       breakpoint.hashCode;
 }
 
+@CopyWith(copyWithNull: true)
 @immutable
-class AdaptiveScrollbarConfig implements Copyable<AdaptiveScrollbarConfig> {
+class AdaptiveScrollbarConfig {
   const AdaptiveScrollbarConfig({
     this.controller,
     this.width = 16.0,
@@ -1482,87 +1103,6 @@ class AdaptiveScrollbarConfig implements Copyable<AdaptiveScrollbarConfig> {
   /// position, the scrollbar will be rotated 90 degrees, and the top will be on
   /// the left. Don't forget this when specifying the [sliderSpacing].
   final EdgeInsetsGeometry sliderSpacing;
-
-  @override
-  AdaptiveScrollbarConfig copy() => AdaptiveScrollbarConfig(
-        controller: controller,
-        width: width,
-        sliderHeight: sliderHeight,
-        sliderChild: sliderChild,
-        sliderDefaultColor: sliderDefaultColor,
-        sliderActiveColor: sliderActiveColor,
-        underColor: underColor,
-        underSpacing: underSpacing,
-        sliderSpacing: sliderSpacing,
-        scrollToClickDelta: scrollToClickDelta,
-        scrollToClickFirstDelay: scrollToClickFirstDelay,
-        scrollToClickOtherDelay: scrollToClickOtherDelay,
-        underDecoration: underDecoration,
-        sliderDecoration: sliderDecoration,
-        sliderActiveDecoration: sliderActiveDecoration,
-      );
-
-  @override
-  AdaptiveScrollbarConfig copyWith({
-    final JSON updates = const <String, dynamic>{},
-    final AdaptiveScrollbarConfig? other,
-  }) =>
-      AdaptiveScrollbarConfig(
-        controller: updates['controller'] ?? other?.controller ?? controller,
-        width: updates['width'] ?? other?.width ?? width,
-        sliderHeight: updates['sliderHeight'] ??
-            updates['slider_height'] ??
-            other?.sliderHeight ??
-            sliderHeight,
-        sliderChild: updates['sliderChild'] ??
-            updates['slider_child'] ??
-            other?.sliderChild ??
-            sliderChild,
-        sliderDefaultColor: updates['sliderDefaultColor'] ??
-            updates['slider_default_color'] ??
-            other?.sliderDefaultColor ??
-            sliderDefaultColor,
-        sliderActiveColor: updates['sliderActiveColor'] ??
-            updates['slider_active_color'] ??
-            other?.sliderActiveColor ??
-            sliderActiveColor,
-        underColor: updates['underColor'] ??
-            updates['under_color'] ??
-            other?.underColor ??
-            underColor,
-        underSpacing: updates['underSpacing'] ??
-            updates['under_spacing'] ??
-            other?.underSpacing ??
-            underSpacing,
-        sliderSpacing: updates['sliderSpacing'] ??
-            updates['slider_spacing'] ??
-            other?.sliderSpacing ??
-            sliderSpacing,
-        scrollToClickDelta: updates['scrollToClickDelta'] ??
-            updates['scroll_to_click_delta'] ??
-            other?.scrollToClickDelta ??
-            scrollToClickDelta,
-        scrollToClickFirstDelay: updates['scrollToClickFirstDelay'] ??
-            updates['scroll_to_click_first_delay'] ??
-            other?.scrollToClickFirstDelay ??
-            scrollToClickFirstDelay,
-        scrollToClickOtherDelay: updates['scrollToClickOtherDelay'] ??
-            updates['scroll_to_click_other_delay'] ??
-            other?.scrollToClickOtherDelay ??
-            scrollToClickOtherDelay,
-        underDecoration: updates['underDecoration'] ??
-            updates['under_decoration'] ??
-            other?.underDecoration ??
-            underDecoration,
-        sliderDecoration: updates['sliderDecoration'] ??
-            updates['slider_decoration'] ??
-            other?.sliderDecoration ??
-            sliderDecoration,
-        sliderActiveDecoration: updates['sliderActiveDecoration'] ??
-            updates['slider_active_decoration'] ??
-            other?.sliderActiveDecoration ??
-            sliderActiveDecoration,
-      );
 
   @override
   bool operator ==(final Object other) =>

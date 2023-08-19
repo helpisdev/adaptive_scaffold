@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:breakpoints_utilities/breakpoints_utilities.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:utilities/utilities.dart';
+import 'package:resizable_text/resizable_text.dart';
 
 import '../../adaptive_scaffold.dart';
 import 'brick_layout.dart';
@@ -55,12 +55,13 @@ class StandardNavigationRail extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final NavigationRailThemeData railTheme = context.theme.navigationRailTheme;
+    final NavigationRailThemeData railTheme =
+        Theme.of(context).navigationRailTheme;
     final double width = extended ? railConf.extendedWidth : railConf.width;
     final double maxLabelWidth = _maxLabelWidth(context, width);
     return SizedBox(
       width: width,
-      height: context.height,
+      height: MediaQuery.of(context).size.height,
       child: NavigationRail(
         backgroundColor: railConf.backgroundColor ?? railTheme.backgroundColor,
         destinations: railConf.destinations
