@@ -9,6 +9,7 @@ environment:
   flutter: ">=3.10.0"
 
 dependencies:
+  accessibility_tools: ^1.0.0
   adaptive_scrollbar:
     path: packages/adaptive_scrollbar
   breakpoints_utilities:
@@ -17,8 +18,11 @@ dependencies:
   copy_with_extension: ^5.0.4
   flutter:
     sdk: flutter
+  flutter_riverpod: ^2.3.7
+  go_router: ^10.1.0
   gtk_window:
     path: packages/gtk_window
+  meta: ^1.9.1
   resizable_text:
     path: packages/gtk_window/packages/resizable_text
 

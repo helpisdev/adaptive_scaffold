@@ -11,3 +11,4 @@ export 'src/adaptive_scaffold/adaptive_scaffold.dart';
 export 'src/adaptive_scaffold/scaffold_config.dart';
 export 'src/appbar.dart';
 export 'src/bottom_bar.dart';
+export 'src/routing/routing.dart';
